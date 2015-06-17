@@ -165,7 +165,7 @@ Camera.prototype.normalizeAngles = function()
     }
 };
 
-var updateCamera = function()
+Camera.prototype.updateCamera = function()
 {
     
     // LOOK
@@ -249,17 +249,17 @@ var updateCamera = function()
   }
 };
 
-var keyDown=function(key) 
+Camera.prototype.keyDown=function(key) 
 {
     camera.keyPressed = key;
 };
 
-var keyUp=function() 
+Camera.prototype.keyUp=function() 
 {
     camera.keyPressed = 0;
 };
 
-var mouseDown = function(button)
+Camera.prototype.mouseDown = function(button)
 {
     if(camera.buttonPressed === -1)
     {
@@ -269,7 +269,7 @@ var mouseDown = function(button)
     }
 };
 
-var mouseUp = function(button)
+Camera.prototype.mouseUp = function(button)
 {
     if(camera.buttonPressed === button)
     {
@@ -277,13 +277,13 @@ var mouseUp = function(button)
     }
 };
 
-var mouseMove = function(event)
+Camera.prototype.mouseMove = function(event)
 {
     mouse.x = event.clientX || event.pageX;
     mouse.y = event.clientY || event.pageY;
 };
 
-var mouseWheel = function(delta)
+Camera.prototype.mouseWheel = function(delta)
 {
     if(delta < 0)
     {

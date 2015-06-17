@@ -10,8 +10,14 @@ function drawScene() {
     
     camera.setViewportAspectRatio(gl.viewportWidth/gl.viewportHeight);
     
-    updateCamera();
+    camera.updateCamera();
     
+    drawPointClouds();
+
+}
+
+function drawPointClouds()
+{
     var model = mat4.create();
     model = mat4.translate(mat4.create(), model, [0, 0.0, 0]);
 
@@ -27,25 +33,14 @@ function drawScene() {
     gl.uniform1f(shaderProgram.blue, document.getElementById("blue").value);
     
     var m = camera.matrix();
-    
     gl.uniformMatrix4fv(shaderProgram.cameraUniform, false, camera.matrix());
     gl.uniformMatrix4fv(shaderProgram.modelUniform, false, model);
     
     gl.drawArrays(gl.POINTS, 0, pointVertexPositionBuffer.numItems);
-
-
-    
 }
 
 function drawLaptopScreen()
 {
-    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    
-    camera.setViewportAspectRatio(gl.viewportWidth/gl.viewportHeight);
-    
-    updateCamera();
-    
     var model = mat4.create();
     model = mat4.translate(mat4.create(), model, [0, 0.0, 0]);
     

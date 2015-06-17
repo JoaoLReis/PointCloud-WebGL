@@ -1,26 +1,26 @@
 function initStuff()
 {
     window.onkeydown=function(event){
-        keyDown(event.which || event.keyCode);
+        camera.keyDown(event.which || event.keyCode);
     };
     
     window.onkeyup=function(event){
-        keyUp();
+        camera.keyUp();
     };
     
     window.onmousemove=function(event)
     {
-        mouseMove(event);
+        camera.mouseMove(event);
     };
     
     window.onmousedown=function(event)
     {
-        mouseDown(event.button);
+        camera.mouseDown(event.button);
     };
     
     window.onmouseup=function(event)
     {
-        mouseUp(event.button);
+        camera.mouseUp(event.button);
     };
     
     var canvas = document.getElementById("MyTest");
@@ -28,7 +28,7 @@ function initStuff()
     var MouseWheelHandler = function(event)
     {
 	var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
-        mouseWheel(delta);
+        camera.mouseWheel(delta);
     };
     
     canvas.addEventListener("mousewheel", MouseWheelHandler, false);
