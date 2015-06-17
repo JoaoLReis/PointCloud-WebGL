@@ -1,0 +1,89 @@
+<html>
+
+<head>
+<title>Point Cloud Navigator</title>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="Auxiliars/AuxiliarFunctions.js"></script>
+
+<div id="byte_range"></div>
+<div id="byte_content"></div>
+
+<!-- Parser scripts -->
+<script type="text/javascript" src="Parsers/PlyParser.js"></script>
+
+<!-- Math scripts -->
+<script type="text/javascript" src="gl-matrix-min.js"></script>
+<script type="text/javascript" src="Matrix Operations/Matrix.js"></script>
+<script type="text/javascript" src="Matrix Operations/Matrix Flow.js"></script>
+
+<!-- behaviour scripts -->
+<script type="text/javascript" src="Camera.js"></script>
+<script type="text/javascript" src="Scene/InitStuff.js"></script>
+<script type="text/javascript" src="WebGL utility functions/webgl-utils.js"></script>
+<script type="text/javascript" src="Shaders/Shader Functions.js"></script>
+<script type="text/javascript" src="Scene/Buffers.js"></script>
+<script type="text/javascript" src="Scene/Scene Drawing.js"></script>
+<script type="text/javascript" src="Scene/Animations.js"></script>
+<script type="text/javascript" src="MainFlow.js"></script>
+
+<!-- Shaders -->
+<script id="shader-fs" type="text/javascript" src="Shaders/FragmentShader.js"></script>
+<script id="shader-vs" type="text/javascript" src="Shaders/VertexShader.js"></script>
+
+<!--
+<script>
+window.onload = function(){
+    
+    var input = document.createElement('input');
+    input.setAttribute("type", "file");
+    input.setAttribute("id", "input");
+    input.setAttribute("defaultValue" , "PointCloudsExamples/Parliament.ply");
+    input.setAttribute("multiple" , true);
+    document.body.appendChild(input);
+
+}
+</script>
+-->
+</head>
+
+<body>
+    
+    <div>
+        <p id="pageTitle">Point Cloud Navigator</p>
+    </div>
+    
+    <div id="Interface">
+        <div id="FileSelection">
+            <input type="file" name="file" id="input" multiple="true">
+            <button id="submitPly" onclick="submitPly()">Submit</button>
+            <select id="selector" style="visibility:hidden"> Select File:
+            </select>
+        </div>
+        <div id="SceneManipulation">
+            <p>Red</p>
+            <input type="range" id="red" max="1.0" min="0.0" step="0.05">
+            <p>Green</p>
+            <input type="range" id="green" max="1.0" min="0.0" step="0.05">
+            <p>Blue</p>
+            <input type="range" id="blue" max="1.0" min="0.0" step="0.05">
+        </div>
+        <p id="Ready" class="Strings">Not Ready</p> 
+        <p id="Debug" class="Strings">Debug String</p> 
+        <p id="Debug2" class="Strings">Debug String</p> 
+        <div id ="buttons">
+            <button id="bParse" onclick="ParsePly()">Parser</button>
+            <button id="bStart" onclick="webGLStart()">WebGL start</button>
+        </div>
+        
+        <p id="fps" class="Strings">FPS Count:</p> 
+    </div>
+    
+    <div id="Display">
+        <div id="Canvas">
+            <canvas id="MyTest" width="1280" height="720"></canvas>
+        </div>
+    </div>
+</body>
+</html>
