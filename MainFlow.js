@@ -25,14 +25,18 @@ function webGLStart() {
     initStuff();
     
     //createDepthTexture();
+    pointCloudDrawing();
     
-    initShaders();
-    initBuffers();
-
     gl.clearColor(0.5, 0.5, 0.5, 1.0);
     gl.enable(gl.DEPTH_TEST);
   
     tick();
+}
+
+function pointCloudDrawing()
+{
+    initShaders();
+    initBuffers();
 }
 
 function tick() {

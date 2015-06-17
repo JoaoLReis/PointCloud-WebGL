@@ -1,27 +1,9 @@
-var rTri = 0;
-var rSquare = 0;
-
 function drawScene() {
-        
-    var now = new Date().getTime();
-    
-    time += (now - prevTime);
-    
-    numFrames++;
-    
-    prevTime = now;
-    
-    var fpscounter = document.getElementById("fps");
-    if(time >= 1000)
-    {
-        fpscounter.innerHTML = "FPS: " + numFrames.toString();
-        numFrames = 0;
-        time -= 1000;
-    }
-        
+   
+   fpsCounter();
+   
     //drawLaptopScreen();    
     //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-        
         
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -39,7 +21,7 @@ function drawScene() {
     gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexColorBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, pointVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-    gl.uniform1f(shaderProgram.pointSizeUniform, 1);
+    gl.uniform1f(shaderProgram.pointSizeUniform, document.getElementById("pointSize").value);
     gl.uniform1f(shaderProgram.red, document.getElementById("red").value);
     gl.uniform1f(shaderProgram.green, document.getElementById("green").value);
     gl.uniform1f(shaderProgram.blue, document.getElementById("blue").value);

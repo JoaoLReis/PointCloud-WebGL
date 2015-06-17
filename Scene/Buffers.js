@@ -1,8 +1,6 @@
 //BUFFERS
 var pointVertexPositionBuffer;
 var pointVertexColorBuffer;
-var squareVertexPositionBuffer;
-var squareVertexColorBuffer;
 
 var depthFrameBuffer;
 var depthTexture;
@@ -16,18 +14,18 @@ function initBuffers() {
         //TEXTURE
         //initDepthScreen();
     
-        //POINT CLOUD
+    //POINT CLOUD
+        //Vertex buffer
 	pointVertexPositionBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexPositionBuffer);
 	
-        
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertex), gl.STATIC_DRAW);
 	pointVertexPositionBuffer.itemSize = 3;
 	pointVertexPositionBuffer.numItems = numberVertex;
 
+        //Color buffer
 	pointVertexColorBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexColorBuffer);
-	
         
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
 	pointVertexColorBuffer.itemSize = numberColors;

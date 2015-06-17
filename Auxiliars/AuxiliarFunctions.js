@@ -1,3 +1,22 @@
+function fpsCounter()
+{
+    var now = new Date().getTime();
+    
+    time += (now - prevTime);
+    
+    numFrames++;
+    
+    prevTime = now;
+    
+    var fpscounter = document.getElementById("fps");
+    if(time >= 1000)
+    {
+        fpscounter.innerHTML = "FPS: " + numFrames.toString();
+        numFrames = 0;
+        time -= 1000;
+    }
+}
+
 function submitPly()
 {
     plyFiles = document.getElementById('input').files;

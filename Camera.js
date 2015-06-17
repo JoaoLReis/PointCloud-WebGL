@@ -220,12 +220,12 @@ var updateCamera = function()
           camera.offsetPosition(vec3.scale(out, dir, camera.cameraMoveSensivity));
           break;
 
-        case 73: //I
+        case 32: //SpaceBar
           var out = vec3.create();
           camera.offsetPosition(vec3.scale(out,[0,1,0], camera.cameraMoveSensivity));
           break;
 
-        case 75: //K
+        case 88: //X
           var out = vec3.create();
           camera.offsetPosition(vec3.scale(out,[0,-1,0], camera.cameraMoveSensivity));
           break;
