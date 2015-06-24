@@ -1,28 +1,56 @@
 //SHADERS
 var shaderProgram;
+var polyShaderProgram;
 
-function initShaders() {
-	var fragmentShader = getShader(gl, "shader-fs");
-	var vertexShader = getShader(gl, "shader-vs");
+//function initShaders(number) {
+//        if(number == 0)
+//            shaderProgramPC();
+//	if(number == 1)
+//            shaderProgramPoly();
+//}
+//
+//function shaderProgramPC()
+//{
+//    var fragmentShader = getShader(gl, "PCshader-fs");
+//    var vertexShader = getShader(gl, "PCshader-vs");
+//
+//    shaderProgram = createShaderProgram(shaderProgram, vertexShader, fragmentShader);
+//	
+//    gl.useProgram(shaderProgram);
+//
+//    shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+//    gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+//
+//    shaderProgram.vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
+//    gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
+//
+//    shaderProgram.cameraUniform = gl.getUniformLocation(shaderProgram, "Camera");
+//    shaderProgram.modelUniform = gl.getUniformLocation(shaderProgram, "Model");
+//    shaderProgram.pointSizeUniform = gl.getUniformLocation(shaderProgram, "pointSize");
+//
+//    shaderProgram.red = gl.getUniformLocation(shaderProgram, "red");
+//    shaderProgram.green = gl.getUniformLocation(shaderProgram, "green");
+//    shaderProgram.blue = gl.getUniformLocation(shaderProgram, "blue");
+//}
 
-	shaderProgram = createShaderProgram(shaderProgram, vertexShader, fragmentShader);
+function shaderProgramPoly()
+{
+    var fragmentShader = getShader(gl, "Polyshader-fs");
+    var vertexShader = getShader(gl, "Polyshader-vs");
+    
+    polyShaderProgram = createShaderProgram(polyShaderProgram, vertexShader, fragmentShader);
 	
-	gl.useProgram(shaderProgram);
+    gl.useProgram(polyShaderProgram);
 
-	shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
-	gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+    polyShaderProgram.vertexPositionAttribute = gl.getAttribLocation(polyShaderProgram, "aVertexPosition");
+    gl.enableVertexAttribArray(polyShaderProgram.vertexPositionAttribute);
 
-	shaderProgram.vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
-	gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
+    polyShaderProgram.vertexColorAttribute = gl.getAttribLocation(polyShaderProgram, "aVertexColor");
+    gl.enableVertexAttribArray(polyShaderProgram.vertexColorAttribute);
 
-	shaderProgram.cameraUniform = gl.getUniformLocation(shaderProgram, "Camera");
-        shaderProgram.modelUniform = gl.getUniformLocation(shaderProgram, "Model");
-	shaderProgram.pointSizeUniform = gl.getUniformLocation(shaderProgram, "pointSize");
-        
-	shaderProgram.red = gl.getUniformLocation(shaderProgram, "red");
-	shaderProgram.green = gl.getUniformLocation(shaderProgram, "green");
-	shaderProgram.blue = gl.getUniformLocation(shaderProgram, "blue");
-        
+    polyShaderProgram.cameraUniform = gl.getUniformLocation(polyShaderProgram, "Camera");
+    polyShaderProgram.modelUniform = gl.getUniformLocation(polyShaderProgram, "Model");
+
 }
 
 function createShaderProgram(shProgram, vshader, fshader)
@@ -39,20 +67,20 @@ function createShaderProgram(shProgram, vshader, fshader)
 	return sProgram;
 }
 
-function getShader(gl, id) {
+function getShader(gl, src, isVertex) {
 	var shaderSrc;
 	var shader;
-	if (id == "shader-fs") {
-		shader = gl.createShader(gl.FRAGMENT_SHADER);
-		shaderSrc = fragmentShaderSrc;
-	} else if (id == "shader-vs") {
+	if (isVertex) {
 		shader = gl.createShader(gl.VERTEX_SHADER);
-		shaderSrc = vertexShaderSrc;
+		shaderSrc = src;
+        }
+        else if (!isVertex){
+		shader = gl.createShader(gl.FRAGMENT_SHADER);
+		shaderSrc = src;
 	} else {
 		return null;
 	}
 	
-
 	gl.shaderSource(shader, shaderSrc);
 	gl.compileShader(shader);
 

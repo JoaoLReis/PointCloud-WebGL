@@ -13,5 +13,4 @@ var polyVertexShaderSrc =
 "	gl_Position = Camera * Model * vec4(aVertexPosition, 1.0);" +
 "	vColor = aVertexColor;" +      
 "" +
-"       gl_PointSize = pointSize;" + 
 "}";

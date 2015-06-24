@@ -60,3 +60,11 @@ function _getAllFilesFromFolder(dir)
     return results;
 
 };
+
+function getNewObjectID()
+{
+    var id = globalID;
+    globalID += 1;
+    
+    return id;
+}

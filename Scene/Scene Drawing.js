@@ -12,8 +12,12 @@ function drawScene() {
     
     camera.updateCamera();
     
-    drawPointClouds();
+    //drawPointClouds();
+    //drawLaptopScreen();
 
+    currentObject.drawPreparation();
+    
+    gl.drawArrays(gl.POINTS, 0, currentObject.vertexPositionBuffer.numItems);
 }
 
 function drawPointClouds()
@@ -44,23 +48,23 @@ function drawLaptopScreen()
     var model = mat4.create();
     model = mat4.translate(mat4.create(), model, [0, 0.0, 0]);
     
-    gl.uniform1i(shaderProgram.useTexturesUniform, true);
+    gl.uniform1i(polyShaderProgram.useTexturesUniform, true);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, laptopScreenVertexPositionBuffer);
-    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, laptopScreenVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribPointer(polyShaderProgram.vertexPositionAttribute, laptopScreenVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, laptopScreenVertexNormalBuffer);
-    gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, laptopScreenVertexNormalBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribPointer(polyShaderProgram.vertexNormalAttribute, laptopScreenVertexNormalBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, laptopScreenVertexTextureCoordBuffer);
-    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, laptopScreenVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribPointer(polyShaderProgram.textureCoordAttribute, laptopScreenVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, depthTexture);
-    gl.uniform1i(shaderProgram.samplerUniform, 0);
+    gl.uniform1i(polyShaderProgram.samplerUniform, 0);
     
-    gl.uniformMatrix4fv(shaderProgram.cameraUniform, false, camera.matrix());
-    gl.uniformMatrix4fv(shaderProgram.modelUniform, false, model);
+    gl.uniformMatrix4fv(polyShaderProgram.cameraUniform, false, camera.matrix());
+    gl.uniformMatrix4fv(polyShaderProgram.modelUniform, false, model);
     
     
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, laptopScreenVertexPositionBuffer.numItems);

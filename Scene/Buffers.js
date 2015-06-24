@@ -1,6 +1,6 @@
 //BUFFERS
-var pointVertexPositionBuffer;
-var pointVertexColorBuffer;
+//var pointVertexPositionBuffer;
+//var pointVertexColorBuffer;
 
 var depthFrameBuffer;
 var depthTexture;
@@ -9,39 +9,36 @@ var laptopScreenVertexPositionBuffer;
 var laptopScreenVertexNormalBuffer;
 var laptopScreenVertexTextureCoordBuffer;
 
-function initBuffers() {
-    
-        //TEXTURE
-        //initDepthScreen();
-    
-    //POINT CLOUD
-        //Vertex buffer
-	pointVertexPositionBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexPositionBuffer);
-	
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertex), gl.STATIC_DRAW);
-	pointVertexPositionBuffer.itemSize = 3;
-	pointVertexPositionBuffer.numItems = numberVertex;
+//function initPCBuffers() {
+//    
+//    //POINT CLOUD
+//        //Vertex buffer
+//	pointVertexPositionBuffer = gl.createBuffer();
+//	gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexPositionBuffer);
+//	
+//	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertex), gl.STATIC_DRAW);
+//	pointVertexPositionBuffer.itemSize = 3;
+//	pointVertexPositionBuffer.numItems = numberVertex;
+//
+//        //Color buffer
+//	pointVertexColorBuffer = gl.createBuffer();
+//	gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexColorBuffer);
+//        
+//	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+//	pointVertexColorBuffer.itemSize = numberColors;
+//	pointVertexColorBuffer.numItems = numberVertex;
+//        
+//}
 
-        //Color buffer
-	pointVertexColorBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexColorBuffer);
-        
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-	pointVertexColorBuffer.itemSize = numberColors;
-	pointVertexColorBuffer.numItems = numberVertex;
-        
-}
-
-function initDepthScreen()
+function initDepthScreenBuffers()
 {
     laptopScreenVertexPositionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, laptopScreenVertexPositionBuffer);
     vertices = [
-         0.580687, 0.659, 0.813106,
-        -0.580687, 0.659, 0.813107,
-         0.580687, 0.472, 0.113121,
-        -0.580687, 0.472, 0.113121,
+         16, 9, 0,
+        0, 9, 0,
+         16, 0, 0,
+        0, 0, 0
         ];
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
     laptopScreenVertexPositionBuffer.itemSize = 3;
@@ -50,10 +47,10 @@ function initDepthScreen()
     laptopScreenVertexNormalBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, laptopScreenVertexNormalBuffer);
     var vertexNormals = [
-         0.000000, -0.965926, 0.258819,
-         0.000000, -0.965926, 0.258819,
-         0.000000, -0.965926, 0.258819,
-         0.000000, -0.965926, 0.258819,
+         0.000000, 0, -1,
+         0.000000, 0, -1,
+         0.000000, 0, -1,
+         0.000000, 0, -1
     ];
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals), gl.STATIC_DRAW);
     laptopScreenVertexNormalBuffer.itemSize = 3;
@@ -65,7 +62,7 @@ function initDepthScreen()
         1.0, 1.0,
         0.0, 1.0,
         1.0, 0.0,
-        0.0, 0.0,
+        0.0, 0.0
     ];
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
     laptopScreenVertexTextureCoordBuffer.itemSize = 2;

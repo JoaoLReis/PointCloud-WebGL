@@ -27,6 +27,8 @@
 <script type="text/javascript" src="Scene/Animations.js"></script>
 <script type="text/javascript" src="MainFlow.js"></script>
 <script type="text/javascript" src="Auxiliars/AuxiliarFunctions.js"></script>
+<script type="text/javascript" src="Objects/Polygon.js"></script>
+<script type="text/javascript" src="Objects/PointCloud.js"></script>
 
 <!-- Shaders -->
 <script id="PCshader-fs" type="text/javascript" src="Shaders/FragmentShader.js"></script>
@@ -67,11 +69,11 @@ window.onload = function(){
             <p>Point Size</p>
             <input type="range" id="pointSize" max="4.0" min="0.0" step="0.1">
             <p>Red</p>
-            <input type="range" id="red" max="1.0" min="0.0" step="0.05">
+            <input type="range" id="red" max="1.0" min="0.0" step="0.05" value="1.0">
             <p>Green</p>
-            <input type="range" id="green" max="1.0" min="0.0" step="0.05">
+            <input type="range" id="green" max="1.0" min="0.0" step="0.05" value="1.0">
             <p>Blue</p>
-            <input type="range" id="blue" max="1.0" min="0.0" step="0.05">
+            <input type="range" id="blue" max="1.0" min="0.0" step="0.05" value="1.0">
         </div>
         <p id="Ready" class="Strings">Not Ready</p> 
         <p id="Debug" class="Strings">Debug String</p> 
