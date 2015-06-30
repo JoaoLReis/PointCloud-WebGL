@@ -12,8 +12,8 @@ var Camera = function(){
     this.vAngle = 0.0;
     this.FOV = 80;
     this.nearPlane = 0.01;
-    this.farPlane = 10000.0;
-    this.viewportAspectRatio = 4.0/3.0;
+    this.farPlane = 100.0;
+    this.viewportAspectRatio = 16.0/9.0;
     
     this.cameraMoveSensivity = 0.1;
     this.cameraLookSensivity = 0.5;

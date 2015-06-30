@@ -4,6 +4,8 @@ var camera = new Camera();
 //Objects
 var globalID = 0;
 var currentObject;
+var currentPolygon;
+var currentPolygon2;
 var appObjects = new Map();
 
 //PARSING
@@ -26,26 +28,31 @@ function webGLStart() {
     
     var canvas = document.getElementById("MyTest");
     
+
     initGL(canvas);
     initStuff();
     
-    //createDepthTexture();
-    pointCloudDrawing();
-    //polyDrawing();
+    var depthTextureExtension = gl.getExtension("WEBGL_depth_texture");
+    if (!depthTextureExtension) {
+        alert("depth textures not supported");
+    }
     
-    gl.clearColor(0.5, 0.5, 0.5, 1.0);
     gl.enable(gl.DEPTH_TEST);
+    
+    pointCloudDrawing();
+    polyDrawing();
+   // initTexture();
+    gl.clearColor(0.1, 0.1, 0.1, 1.0);
   
     tick();
 }
 
 function pointCloudDrawing()
 {
-    //initShaders(0);
-    //initPCBuffers();
     var pointCloud = new PointCloud();
     pointCloud.init();
     pointCloud.prepareDraw();
+    pointCloud.cleanUp();
     currentObject = pointCloud;
     if(parseIndex == 0)
     {
@@ -85,8 +92,41 @@ function mapContains(map, id)
 
 function polyDrawing()
 {
-    initShaders(1);
-    initDepthScreenBuffers();
+//    initShaders(1);
+//    initDepthScreenBuffers();
+    var vertices = [
+         0.01, 0.005625, 0,
+        0, 0.005625, 0,
+         0.01, 0, 0,
+        0, 0, 0
+        ];
+        
+    var vertexNormals = [
+         0.000000, 0, -1,
+         0.000000, 0, -1,
+         0.000000, 0, -1,
+         0.000000, 0, -1
+    ];
+    
+    var textureCoords = [
+        1.0, 1.0,
+        0.0, 1.0,
+        1.0, 0.0,
+        0.0, 0.0
+    ];
+    
+    var polygon = new Polygon(vertices, vertexNormals, textureCoords);
+    polygon.init();
+    polygon.prepareDraw();
+    polygon.createDepthTexture();
+    polygon.cleanUp();
+    polygon.modelMatrixUpdateFunction = function() {
+        var model = mat4.create();
+        model = mat4.invert(mat4.create(), camera.view());
+        model = mat4.translate(mat4.create(), model, [0.0046, 0.0027, -0.011]);
+        this.modelMatrix = model;
+    }
+    currentPolygon = polygon;
 }
 
 function tick() {
@@ -96,3 +136,26 @@ function tick() {
 }
 
 
+var exampleTexture;
+
+function initTexture()
+{
+    exampleTexture = gl.createTexture();
+    exampleTexture.image = new Image();
+    exampleTexture.image.onload = function() {
+      handleLoadedTexture(exampleTexture);
+    }
+
+    exampleTexture.image.src = "CoolDesktopWallpaper.jpg";
+}
+
+function handleLoadedTexture(texture) {
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+    gl.bindTexture(gl.TEXTURE_2D, null);
+  }

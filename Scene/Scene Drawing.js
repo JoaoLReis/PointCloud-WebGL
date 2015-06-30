@@ -12,60 +12,24 @@ function drawScene() {
     
     camera.updateCamera();
     
-    //drawPointClouds();
-    //drawLaptopScreen();
-
+    //need to create PC manager to iterate all active PC and draw them
+    gl.bindFramebuffer(gl.FRAMEBUFFER, depthFrameBuffer);
+    
+//  gl.colorMask(false, false, false, false);
+    gl.clear(gl.DEPTH_BUFFER_BIT);
     currentObject.drawPreparation();
-    
     gl.drawArrays(gl.POINTS, 0, currentObject.vertexPositionBuffer.numItems);
-}
-
-function drawPointClouds()
-{
-    var model = mat4.create();
-    model = mat4.translate(mat4.create(), model, [0, 0.0, 0]);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexPositionBuffer);
-    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, pointVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexColorBuffer);
-    gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, pointVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-    gl.uniform1f(shaderProgram.pointSizeUniform, document.getElementById("pointSize").value);
-    gl.uniform1f(shaderProgram.red, document.getElementById("red").value);
-    gl.uniform1f(shaderProgram.green, document.getElementById("green").value);
-    gl.uniform1f(shaderProgram.blue, document.getElementById("blue").value);
     
-    var m = camera.matrix();
-    gl.uniformMatrix4fv(shaderProgram.cameraUniform, false, camera.matrix());
-    gl.uniformMatrix4fv(shaderProgram.modelUniform, false, model);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    currentObject.drawPreparation();
+    gl.drawArrays(gl.POINTS, 0, currentObject.vertexPositionBuffer.numItems);
     
-    gl.drawArrays(gl.POINTS, 0, pointVertexPositionBuffer.numItems);
-}
-
-function drawLaptopScreen()
-{
-    var model = mat4.create();
-    model = mat4.translate(mat4.create(), model, [0, 0.0, 0]);
-    
-    gl.uniform1i(polyShaderProgram.useTexturesUniform, true);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, laptopScreenVertexPositionBuffer);
-    gl.vertexAttribPointer(polyShaderProgram.vertexPositionAttribute, laptopScreenVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, laptopScreenVertexNormalBuffer);
-    gl.vertexAttribPointer(polyShaderProgram.vertexNormalAttribute, laptopScreenVertexNormalBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, laptopScreenVertexTextureCoordBuffer);
-    gl.vertexAttribPointer(polyShaderProgram.textureCoordAttribute, laptopScreenVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
+    currentPolygon.drawPreparation();
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, depthTexture);
-    gl.uniform1i(polyShaderProgram.samplerUniform, 0);
+    gl.uniform1i(currentPolygon.shaderProgram.samplerUniform, 0);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, currentPolygon.vertexPositionBuffer.numItems);
     
-    gl.uniformMatrix4fv(polyShaderProgram.cameraUniform, false, camera.matrix());
-    gl.uniformMatrix4fv(polyShaderProgram.modelUniform, false, model);
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
     
-    
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, laptopScreenVertexPositionBuffer.numItems);
 }

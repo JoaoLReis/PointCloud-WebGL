@@ -69,13 +69,17 @@ PointCloud.prototype.startShader = function()
 
 PointCloud.prototype.drawPreparation = function()
 {
+    this.prepareDraw();
+    
     var model = mat4.create();
     model = mat4.translate(mat4.create(), model, [0, 0.0, 0]);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+    gl.enableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
     gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.vertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexColorBuffer);
+    gl.enableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
     gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     gl.uniform1f(this.shaderProgram.pointSizeUniform, document.getElementById("pointSize").value);
@@ -86,4 +90,10 @@ PointCloud.prototype.drawPreparation = function()
     var m = camera.matrix();
     gl.uniformMatrix4fv(this.shaderProgram.cameraUniform, false, camera.matrix());
     gl.uniformMatrix4fv(this.shaderProgram.modelUniform, false, model);
+}
+
+PointCloud.prototype.cleanUp = function()
+{
+    gl.disableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
+    gl.disableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
 }
