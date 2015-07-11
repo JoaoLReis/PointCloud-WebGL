@@ -9,20 +9,20 @@
 <div id="byte_range"></div>
 <div id="byte_content"></div>
 
-<!-- Parser scripts -->
-<script type="text/javascript" src="Parsers/PlyParser.js"></script>
-
 <!-- Math scripts -->
 <script type="text/javascript" src="gl-matrix-min.js"></script>
 <script type="text/javascript" src="Matrix Operations/Matrix.js"></script>
 <script type="text/javascript" src="Matrix Operations/Matrix Flow.js"></script>
+<script type="text/javascript" src="Auxiliars/Math.js"></script>
 
 <!-- behaviour scripts -->
-<script type="text/javascript" src="Camera.js"></script>
+<script type="text/javascript" src="Modules/RenderingEnhancement/RenderEnhanceManager.js"></script>
+<script type="text/javascript" src="Modules/CollisionDetection/CollisionDetectionManager.js"></script>
+<script type="text/javascript" src="Scene/Camera.js"></script>
+<script type="text/javascript" src="Auxiliars/GlobalVariables.js"></script>
 <script type="text/javascript" src="Scene/InitStuff.js"></script>
 <script type="text/javascript" src="WebGL utility functions/webgl-utils.js"></script>
-<script type="text/javascript" src="Shaders/Shader Functions.js"></script>
-<script type="text/javascript" src="Scene/Buffers.js"></script>
+<script type="text/javascript" src="Auxiliars/Shader Functions.js"></script>
 <script type="text/javascript" src="Scene/Scene Drawing.js"></script>
 <script type="text/javascript" src="Scene/Animations.js"></script>
 <script type="text/javascript" src="MainFlow.js"></script>
@@ -30,11 +30,16 @@
 <script type="text/javascript" src="Objects/Polygon.js"></script>
 <script type="text/javascript" src="Objects/PointCloud.js"></script>
 
+<!-- Parser scripts -->
+<script type="text/javascript" src="Parsers/PlyParser.js"></script>
+
 <!-- Shaders -->
 <script id="PCshader-fs" type="text/javascript" src="Shaders/FragmentShader.js"></script>
 <script id="PCshader-vs" type="text/javascript" src="Shaders/VertexShader.js"></script>
 <script id="Polyshader-fs" type="text/javascript" src="Shaders/PolyFragmentShader.js"></script>
 <script id="Polyshader-vs" type="text/javascript" src="Shaders/PolyVertexShader.js"></script>
+<script id="Depthshader-fs" type="text/javascript" src="Shaders/DepthFragmentShader.js"></script>
+<script id="Depthshader-vs" type="text/javascript" src="Shaders/DepthVertexShader.js"></script>
 
 <!--
 <script>

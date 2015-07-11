@@ -18,7 +18,7 @@ var Polygon = function(vertex, normals, texCoords) {
     this.shaderProgram;
 };
 
-Polygon.prototype.init = function()
+Polygon.prototype.init = function(isDepth)
 {
     //get ID for this objet
     this.ID = getNewObjectID();
@@ -49,9 +49,18 @@ Polygon.prototype.init = function()
     
     
     //initialize shaders
-    var fragmentShader = getShader(gl, polyFragmentShaderSrc, false);
-    var vertexShader = getShader(gl, polyVertexShaderSrc, true);
-    this.shaderProgram = createShaderProgram(this.shaderProgram, vertexShader, fragmentShader);
+    if(isDepth)
+    {
+        var fragmentShader = getShader(gl, depthFragmentShaderSrc, false);
+        var vertexShader = getShader(gl, depthVertexShaderSrc, true);
+        this.shaderProgram = createShaderProgram(this.shaderProgram, vertexShader, fragmentShader);
+    }
+    else
+    {
+        var fragmentShader = getShader(gl, polyFragmentShaderSrc, false);
+        var vertexShader = getShader(gl, polyVertexShaderSrc, true);
+        this.shaderProgram = createShaderProgram(this.shaderProgram, vertexShader, fragmentShader);
+    }
 }
 
 Polygon.prototype.prepareDraw = function()

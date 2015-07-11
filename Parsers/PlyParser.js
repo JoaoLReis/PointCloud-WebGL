@@ -68,10 +68,13 @@ function ParsePly() {
             }
             if(line === lines.length-1)
             {
+                document.getElementById("Debug").innerHTML = "about to calculate Radius";
+                collisionManager.calculateRadius();
                 ready = true;
                 document.getElementById("Ready").innerHTML = "Ready";
                 document.getElementById("Ready").style.color = "green";
             }
+            
             
         }
     };
