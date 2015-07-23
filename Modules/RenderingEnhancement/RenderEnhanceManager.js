@@ -11,6 +11,7 @@ RenderEnhanceManager.prototype.init = function()
 {
     pointCloudDrawing();
     polyDrawing();
+    octreeDrawing();
    // initTexture();
 }
 
@@ -20,6 +21,9 @@ RenderEnhanceManager.prototype.drawRegularScene = function()
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     currentObject.drawPreparation();
     gl.drawArrays(gl.POINTS, 0, currentObject.vertexPositionBuffer.numItems);
+    
+    currentPolygon.drawPreparation();
+    gl.drawArrays(gl.LINES, 0, currentPolygon.vertexPositionBuffer.numItems);
     
     currentPolygon2.drawPreparation();
     gl.activeTexture(gl.TEXTURE0);
@@ -186,6 +190,32 @@ function polyDrawing()
     polygon2.modelMatrixUpdateFunction = function() {
     }
     currentPolygon2 = polygon2;
+}
+
+function octreeDrawing()
+{
+    var vertices = [
+         0.01, 0.005625, 0,
+        0, 0.005625, 0,
+         0.01, 0, 0,
+        0, 0, 0
+        ];
+        
+    var vertexNormals = [
+         1, 0, 0,
+         1, 0, 0,
+         1, 0, 0,
+         1, 0, 0
+    ];
+    
+    var octree = new Wireframe(vertices, vertexNormals);
+    octree.init(true);
+    octree.prepareDraw();
+    octree.cleanUp();
+    octree.modelMatrixUpdateFunction = function() {
+    }
+    currentPolygon = octree;
+    
 }
 
 var exampleTexture;

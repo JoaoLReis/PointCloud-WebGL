@@ -6,6 +6,7 @@ var CollisionDetectionManager = function()
 {
     this.ID = 0;
     this.radius = 0.01;
+    this.pointCloudOctree;
 }
 
 CollisionDetectionManager.prototype.init = function()
@@ -25,6 +26,22 @@ CollisionDetectionManager.prototype.init = function()
     }
 }
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// OCTREE CONSTRUCTION
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CollisionDetectionManager.prototype.createOctree = function()
+{
+    var now = new Date().getTime();
+    this.pointCloudOctree = new Octree();
+    this.pointCloudOctree.init(points);
+    document.getElementById("Debug2").innerHTML = new Date().getTime() - now;
+}
+
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// TO CALCULATE MIN DISTANCE BETWEEN 2 POINTS
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CollisionDetectionManager.prototype.calculateRadius = function()
 {
     document.getElementById("Debug").innerHTML = "calculating Radius";

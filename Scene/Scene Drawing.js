@@ -12,6 +12,8 @@ function drawScene() {
     
     camera.updateCamera();
     
+//    collisionManager.createOctree();
+    
 //    renderManager.drawScene();
     renderManager.drawRegularScene();
     

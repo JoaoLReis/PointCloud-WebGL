@@ -1,6 +1,11 @@
 var plyFiles = "";
 var parseIndex = 0;
 
+var points = [];
+
+var centerPC = new Point(0, 0, 0);
+var XYZlength = new Point(0, 0, 0);
+
 function ParsePly() {
     
     var auxStruct = {file:"",reader:"" };
@@ -13,6 +18,8 @@ function ParsePly() {
     // If we use onloadend, we need to check the readyState.
     auxStruct.reader.onloadend = function(evt) {
         
+        var maxXYZ = [0, 0, 0];
+        var minXYZ = [-99999999, -99999999, -99999999];
         colors = [];
         vertex = [];
         numberVertex = 0;
@@ -59,7 +66,11 @@ function ParsePly() {
             for(var i = 0; i < 3; i++)
             {
                 vertex.push(splitted[i]);
+                maxXYZ[i] = splitted[i] > maxXYZ[i] ? parseFloat(splitted[i]) : parseFloat(maxXYZ[i]);
+                minXYZ[i] = splitted[i] < minXYZ[i] ? parseFloat(splitted[i]) : parseFloat(minXYZ[i]);
             }
+            
+            points.push(new Point(parseFloat(splitted[0]), parseFloat(splitted[1]), parseFloat(splitted[2]))); 
             
             var colorInterval = 3 + numberColors; 
             for(var k = 3; k < colorInterval; k++)
@@ -67,9 +78,16 @@ function ParsePly() {
                 colors.push(splitted[k]/255.0);
             }
             if(line === lines.length-1)
-            {
-                document.getElementById("Debug").innerHTML = "about to calculate Radius";
-                collisionManager.calculateRadius();
+            {                
+                centerPC.x = (minXYZ[0] + maxXYZ[0])*1000000/2000000;
+                centerPC.y = (minXYZ[1] + maxXYZ[1])*1000000/2000000;
+                centerPC.z = (minXYZ[2] + maxXYZ[2])*1000000/2000000;
+                XYZlength.x = Math.abs((minXYZ[0] - maxXYZ[0])*1000000/2000000);
+                XYZlength.y = Math.abs((minXYZ[1] - maxXYZ[1])*1000000/2000000);
+                XYZlength.z = Math.abs((minXYZ[2] - maxXYZ[2])*1000000/2000000);
+                
+                //document.getElementById("Debug").innerHTML = "about to calculate Radius";
+                //collisionManager.calculateRadius();
                 ready = true;
                 document.getElementById("Ready").innerHTML = "Ready";
                 document.getElementById("Ready").style.color = "green";

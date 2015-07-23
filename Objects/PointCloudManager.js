@@ -2,6 +2,6 @@
  * This file was created by João Luís Reis
  */
 
-var PointCloud = function() {
+var PointCloudManager = function() {
     this.pointClouds;
 };
