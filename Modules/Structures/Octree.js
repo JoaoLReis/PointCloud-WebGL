@@ -6,7 +6,7 @@ var Octree = function(centerPC, XYZlength)
 {
     this.ID = 0;
     this.root = new OctreeNode(centerPC, XYZlength, 0);
-    this.maxDepth = 5;
+    this.maxDepth = 8;
     this.wireframeVertices = [];
 }
 

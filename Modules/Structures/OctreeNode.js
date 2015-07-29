@@ -22,15 +22,11 @@ OctreeNode.prototype.isLeafNode = function(){
     // We are a leaf if we have no children. Since we either have none, or 
     // all eight, it is sufficient to just check the first.
     
-    return this.children[0] === null;
+    return this.children[0] == null;
 }
                 
 OctreeNode.prototype.insert = function(point, maxDepth)
 {
-//    if(this.depth >= maxDepth)
-//    {
-//        console.log("Vertex: " + this.center.x + ", " + this.center.y + ", " + this.center.z);
-//    }
     // If this node doesn't have a data point yet assigned 
     // and it is a leaf, then we're done!
     if(this.isLeafNode()) {
@@ -38,7 +34,6 @@ OctreeNode.prototype.insert = function(point, maxDepth)
             this.data.push(point);
             return;
         } else {
-
             // We're at a leaf, but there's already something here
             // We will split this node so that it has 8 child octants
             // and then insert the old data that was here, along with 
@@ -63,6 +58,7 @@ OctreeNode.prototype.insert = function(point, maxDepth)
             // Re-insert the old point, and insert this new point
             // (We wouldn't need to insert from the root, because we already
             // know it's guaranteed to be in this section of the tree)
+            
             this.children[this.getPointOctant(oldPoint)].insert(oldPoint, maxDepth);
             this.children[this.getPointOctant(point)].insert(point, maxDepth);
         }
@@ -94,8 +90,6 @@ OctreeNode.prototype.getPointOctant = function(point)
 
 OctreeNode.prototype.generateSelfWireframe = function()
 {
-    console.log("Depth: " + this.depth);
-
     if(!this.isLeafNode())
     {
         var vertexCollection = [];
@@ -245,12 +239,13 @@ OctreeNode.prototype.generateSelfWireframe = function()
         
         for(var i = 0; i < this.children.length; i++)
         {
+          
             var returned = this.children[i].generateSelfWireframe();
             if(returned !== null)
             {
-                for(var i = 0; i < returned.length; i++)
+                for(var k = 0; k < returned.length; k++)
                 {
-                    vertexCollection.push(returned[i]);
+                    vertexCollection.push(returned[k]);
                 }
             }
         }
