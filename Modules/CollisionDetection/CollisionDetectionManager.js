@@ -31,13 +31,23 @@ CollisionDetectionManager.prototype.init = function()
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CollisionDetectionManager.prototype.createOctree = function()
 {
+//    console.log("CREATE OCTREE");
+//    console.log("center: " + centerPC.position());
+//    console.log("HalfLength: " + XYZlength.position());
+ 
     var now = new Date().getTime();
-    this.pointCloudOctree = new Octree();
+    this.pointCloudOctree = new Octree(centerPC, XYZlength);
     this.pointCloudOctree.init(points);
     document.getElementById("Debug2").innerHTML = new Date().getTime() - now;
 }
 
-
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// OCTREE DRAWING
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CollisionDetectionManager.prototype.prepareOctreeDraw = function()
+{
+    this.pointCloudOctree.generateWireframe();
+}
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // TO CALCULATE MIN DISTANCE BETWEEN 2 POINTS

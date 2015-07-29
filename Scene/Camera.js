@@ -221,13 +221,15 @@ Camera.prototype.updateCamera = function()
           break;
 
         case 32: //SpaceBar
+          var dir = camera.up();
           var out = vec3.create();
-          camera.offsetPosition(vec3.scale(out,[0,1,0], camera.cameraMoveSensivity));
+          camera.offsetPosition(vec3.scale(out,dir, camera.cameraMoveSensivity));
           break;
 
         case 88: //X
+          var dir = camera.up();
           var out = vec3.create();
-          camera.offsetPosition(vec3.scale(out,[0,-1,0], camera.cameraMoveSensivity));
+          camera.offsetPosition(vec3.scale(out,vec3.negate(vec3.create(), dir), camera.cameraMoveSensivity));
           break;
 
         case 89: //Y

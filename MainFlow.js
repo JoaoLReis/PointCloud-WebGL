@@ -19,9 +19,11 @@ function webGLStart() {
     
     gl.enable(gl.DEPTH_TEST);
     
-    renderManager.init();
     collisionManager.init();
     collisionManager.createOctree();
+    collisionManager.prepareOctreeDraw();
+    
+    renderManager.init();
     
     gl.clearColor(0.1, 0.1, 0.1, 1.0);
   

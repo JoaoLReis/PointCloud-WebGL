@@ -194,26 +194,29 @@ function polyDrawing()
 
 function octreeDrawing()
 {
-    var vertices = [
-         0.01, 0.005625, 0,
-        0, 0.005625, 0,
-         0.01, 0, 0,
-        0, 0, 0
-        ];
-        
-    var vertexNormals = [
-         1, 0, 0,
-         1, 0, 0,
-         1, 0, 0,
-         1, 0, 0
-    ];
+//    var vertices = [
+//         0.01, 0.005625, 0,
+//        0, 0.005625, 0,
+//         0.01, 0, 0,
+//        0, 0, 0
+//        ];
+
+    var verts = collisionManager.pointCloudOctree.wireframeVertices;
+    var vertices = [];
+    for(var i = 0; i < verts.length; i++)
+    {
+        for(var k = 0; k < verts[i].length; k++)
+        {
+            vertices.push(verts[i][k]);
+        }
+//            console.log("Vertex: " + vertices[i*3 + 0] + ", " + vertices[i*3 + 1] + ", " + vertices[i*3 + 2]);
+    }
     
-    var octree = new Wireframe(vertices, vertexNormals);
-    octree.init(true);
+    console.log("!$!$!$!$" + vertices.length);
+    var octree = new Wireframe(vertices, vertices.length/3);
+    octree.init();
     octree.prepareDraw();
     octree.cleanUp();
-    octree.modelMatrixUpdateFunction = function() {
-    }
     currentPolygon = octree;
     
 }

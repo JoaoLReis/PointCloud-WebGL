@@ -2,13 +2,13 @@
  * This file was created by João Luís Reis
  */
 
-var OctreeNode = function(center, halflength, depth)
+var OctreeNode = function(centerPoint, halflengthDistance, depth)
 {
     this.ID = 0;
     this.isLeaf = true;
     this.depth = depth;
-    this.center = center;
-    this.halfLength = halflength;
+    this.center = centerPoint;
+    this.halfLength = halflengthDistance;
     this.children = new Array(null, null, null, null, null, null, null, null);
     this.data = [];
 }
@@ -27,6 +27,10 @@ OctreeNode.prototype.isLeafNode = function(){
                 
 OctreeNode.prototype.insert = function(point, maxDepth)
 {
+//    if(this.depth >= maxDepth)
+//    {
+//        console.log("Vertex: " + this.center.x + ", " + this.center.y + ", " + this.center.z);
+//    }
     // If this node doesn't have a data point yet assigned 
     // and it is a leaf, then we're done!
     if(this.isLeafNode()) {
@@ -48,11 +52,12 @@ OctreeNode.prototype.insert = function(point, maxDepth)
             // child octant.
             for(var i=0; i<8; i++) {
                     // Compute new bounding box for this child
-                    var newOrigin = this.center;
-                    newOrigin.x += this.halfLength.x * (i&4 ? .5 : -.5);
-                    newOrigin.y += this.halfLength.y * (i&2 ? .5 : -.5);
-                    newOrigin.z += this.halfLength.z * (i&1 ? .5 : -.5);
-                    this.children[i] = new OctreeNode(newOrigin, this.halfLength*.5, this.depth + 1);
+                    var newOrigin = new Point(this.center.x, this.center.y, this.center.z);
+    
+                    newOrigin.x += this.halfLength.x * (i&4 ? 0.5 : -0.5);
+                    newOrigin.y += this.halfLength.y * (i&2 ? 0.5 : -0.5);
+                    newOrigin.z += this.halfLength.z * (i&1 ? 0.5 : -0.5);
+                    this.children[i] = new OctreeNode(newOrigin, new Point(this.halfLength.x*0.5, this.halfLength.y*0.5, this.halfLength.z*0.5), this.depth + 1);
             }
 
             // Re-insert the old point, and insert this new point
@@ -89,15 +94,147 @@ OctreeNode.prototype.getPointOctant = function(point)
 
 OctreeNode.prototype.generateSelfWireframe = function()
 {
+    console.log("Depth: " + this.depth);
+
     if(!this.isLeafNode())
     {
         var vertexCollection = [];
-        
+        var HL = this.halfLength;
         //create vertex -> pick each center of each face of parent and add 4 vertex (axis aligned and not to center) 
         //Hammertime
         for(var i = 0; i < 6; i++)
         {
+            var newCenter = [];
+            newCenter[0] = this.center.x;
+            newCenter[1] = this.center.y;
+            newCenter[2] = this.center.z;
+            var xMove = (!(i&4)&&!(i&2) ? ((i&1)? -1 : 1) : 0);
+            var yMove = (i&2 ? ((i&1)? -1 : 1) : 0);
+            var zMove = (i&4 ? ((i&1)? -1 : 1) : 0);
+            newCenter[0] += HL.x * xMove;
+            newCenter[1] += HL.y * yMove;
+            newCenter[2] += HL.z * zMove;
             
+            
+            if(xMove !== 0)
+            {
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[1] += HL.y;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[1] -= HL.y;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[2] += HL.z;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[2] -= HL.z;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+            }
+            else if(yMove !== 0)
+            {
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[0] += HL.x;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[0] -= HL.x;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[2] += HL.z;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[2] -= HL.z;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+            }
+            else if(zMove !== 0)
+            {
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[1] += HL.y;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[1] -= HL.y;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[0] += HL.x;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+                
+                var newPoint = [];
+                newPoint[0] = newCenter[0];
+                newPoint[1] = newCenter[1];
+                newPoint[2] = newCenter[2];
+                
+                newPoint[0] -= HL.x;
+                vertexCollection.push(newPoint);
+                vertexCollection.push(newCenter);
+            }
+            else
+            {
+                alert("Something Went Wrong! octree Node generateSelfWireFrame");
+            }
         }
         
         //create vertex -> pick center of parent and create a union between the center of oposite faces (6 faces -> 3 unions)
@@ -110,7 +247,12 @@ OctreeNode.prototype.generateSelfWireframe = function()
         {
             var returned = this.children[i].generateSelfWireframe();
             if(returned !== null)
-                vertexCollection.push(returned);
+            {
+                for(var i = 0; i < returned.length; i++)
+                {
+                    vertexCollection.push(returned[i]);
+                }
+            }
         }
         return vertexCollection;
     }
