@@ -20,7 +20,7 @@ function webGLStart() {
     gl.enable(gl.DEPTH_TEST);
     
     collisionManager.init();
-    collisionManager.createOctree();
+    collisionManager.createOctree(centerPC, XYZlength, vertex);
     collisionManager.prepareOctreeDraw();
     
     renderManager.init();

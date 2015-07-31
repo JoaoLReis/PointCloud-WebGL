@@ -12,9 +12,9 @@ var Octree = function(centerPC, XYZlength)
 
 Octree.prototype.init = function(points)
 {
-    for(var i = 0; i < points.length; i++)
+    for(var i = 0; i < points.length; i+=3)
     {
-        this.root.insert(points[i], this.maxDepth);
+        this.root.insert([points[i], points[i+1], points[i+2]], this.maxDepth);
     }
 }
 
@@ -28,56 +28,33 @@ Octree.prototype.generateRootWireframe = function()
 {
     //origin - center of all octree
     //HL - halflength of box
-    var origin = this.root.center.position();
+    var origin = this.root.center;
     var HL = this.root.halfLength;
-    
-//    console.log("origin: " + origin);
-//    console.log("HalfLength: " + HL.x + ", " + HL.y + ", " + HL.z);
-
     
     //points chosen in the for are all face diagonal from the others
     for(var i = 0; i < 4; i++)
     {
         //point to draw
-        var ptd = [];
-        ptd[0] = origin[0];
-        ptd[1] = origin[1];
-        ptd[2] = origin[2];
+        var ptd = new Point(origin.x, origin.y, origin.z);
         var xMove = (i&1 ? 1 : -1);
         var yMove = (!(i&2) ? 1 : -1);
         var zMove = (((i&1)&&(i&2)) || !((i&1)||(i&2)) ? 1 : -1);
-        ptd[0] += HL.x * xMove;
-        ptd[1] += HL.y * yMove;
-        ptd[2] += HL.z * zMove;
-        
-//        console.log("xMove" + xMove);
-//        console.log("yMove" + yMove);
-//        console.log("zMove" + zMove);
-//        console.log("ptd 0: " + ptd[0]);
-//        console.log("ptd 1: " + ptd[1]);
-//        console.log("ptd 2: " + ptd[2]);
-
+        ptd.x += HL.x * xMove;
+        ptd.y += HL.y * yMove;
+        ptd.z += HL.z * zMove;
         
         for(var k = 0; k < 3;  k++)
         {
             this.wireframeVertices.push(ptd);
             //the three connected vertices
-            var newVertex = [];
-            newVertex[0] = ptd[0];
-            newVertex[1] = ptd[1];
-            newVertex[2] = ptd[2];            
-            newVertex[0] += (-xMove)*(k===2 ? 1 : 0)*HL.x*2 ;
-            newVertex[1] += (-yMove)*(k===1 ? 1 : 0)*HL.y*2;
-            newVertex[2] += (-zMove)*(k===0 ? 1 : 0)*HL.z*2;
+            var newVertex = new Point(ptd.x, ptd.y, ptd.z);       
+            newVertex.x += (-xMove)*(k===2 ? 1 : 0)*HL.x*2 ;
+            newVertex.y += (-yMove)*(k===1 ? 1 : 0)*HL.y*2;
+            newVertex.z += (-zMove)*(k===0 ? 1 : 0)*HL.z*2;
 
             this.wireframeVertices.push(newVertex);
         }
     }
-    
-//    for(var i = 0; i < this.wireframeVertices.length; i++)
-//    {
-//        console.log("Vertex: " + this.wireframeVertices[i] + ", " + this.wireframeVertices[i + 1] + ", " + this.wireframeVertices[i + 2]);
-//    }
 }
 
 Octree.prototype.generateRestWireframe = function()

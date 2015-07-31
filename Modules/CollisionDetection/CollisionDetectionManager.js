@@ -6,7 +6,7 @@ var CollisionDetectionManager = function()
 {
     this.ID = 0;
     this.radius = 0.01;
-    this.pointCloudOctree;
+    this.pointCloudOctrees = [];
 }
 
 CollisionDetectionManager.prototype.init = function()
@@ -29,16 +29,12 @@ CollisionDetectionManager.prototype.init = function()
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // OCTREE CONSTRUCTION
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-CollisionDetectionManager.prototype.createOctree = function()
+CollisionDetectionManager.prototype.createOctree = function(centerPC, XYZlength, vertex)
 {
-//    console.log("CREATE OCTREE");
-//    console.log("center: " + centerPC.position());
-//    console.log("HalfLength: " + XYZlength.position());
- 
     var now = new Date().getTime();
-    this.pointCloudOctree = new Octree(centerPC, XYZlength);
-    this.pointCloudOctree.init(points);
-    document.getElementById("Debug2").innerHTML = new Date().getTime() - now;
+    this.pointCloudOctrees.push(new Octree(centerPC, XYZlength));
+    this.pointCloudOctrees[this.pointCloudOctrees.length-1].init(vertex);
+    document.getElementById("Times").innerHTML = document.getElementById("Times").innerHTML + (" || Create Octree: " + (new Date().getTime() - now));
 }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -46,7 +42,10 @@ CollisionDetectionManager.prototype.createOctree = function()
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CollisionDetectionManager.prototype.prepareOctreeDraw = function()
 {
-    this.pointCloudOctree.generateWireframe();
+    var now = new Date().getTime();
+    for(var i = 0; i < this.pointCloudOctrees.length; i++)
+        this.pointCloudOctrees[i].generateWireframe();
+    document.getElementById("Times").innerHTML = document.getElementById("Times").innerHTML + (" || Prepare Octree for drawing: " + (new Date().getTime() - now));
 }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

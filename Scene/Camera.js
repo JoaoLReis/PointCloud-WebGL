@@ -193,7 +193,6 @@ Camera.prototype.updateCamera = function()
         
     }
     
-    //MOVE
     switch(camera.keyPressed) {
 
         case 87: //W
@@ -248,6 +247,9 @@ Camera.prototype.updateCamera = function()
           camera.offsetOrientation(camera.cameraMoveSensivity*10, 0);
           break;
 
+        case 79:
+            showOctree = !showOctree;
+            break;
   }
 };
 

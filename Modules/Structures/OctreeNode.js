@@ -81,9 +81,9 @@ OctreeNode.prototype.insert = function(point, maxDepth)
 OctreeNode.prototype.getPointOctant = function(point)
 {
     var oct = 0;
-    if(point.x >= this.center.x) oct |= 4;
-    if(point.y >= this.center.y) oct |= 2;
-    if(point.z >= this.center.z) oct |= 1;
+    if(point[0] >= this.center.x) oct |= 4;
+    if(point[1] >= this.center.y) oct |= 2;
+    if(point[2] >= this.center.z) oct |= 1;
     
     return oct;
 }
@@ -92,138 +92,97 @@ OctreeNode.prototype.generateSelfWireframe = function()
 {
     if(!this.isLeafNode())
     {
-        var vertexCollection = [];
+        var vertexCollection = new Array(48);
         var HL = this.halfLength;
         //create vertex -> pick each center of each face of parent and add 4 vertex (axis aligned and not to center) 
         //Hammertime
         for(var i = 0; i < 6; i++)
         {
-            var newCenter = [];
-            newCenter[0] = this.center.x;
-            newCenter[1] = this.center.y;
-            newCenter[2] = this.center.z;
+            var newCenter = new Point(this.center.x, this.center.y, this.center.z, this.depth);
             var xMove = (!(i&4)&&!(i&2) ? ((i&1)? -1 : 1) : 0);
             var yMove = (i&2 ? ((i&1)? -1 : 1) : 0);
             var zMove = (i&4 ? ((i&1)? -1 : 1) : 0);
-            newCenter[0] += HL.x * xMove;
-            newCenter[1] += HL.y * yMove;
-            newCenter[2] += HL.z * zMove;
+            newCenter.x += HL.x * xMove;
+            newCenter.y += HL.y * yMove;
+            newCenter.z += HL.z * zMove;
             
-            
+            var aux = i*8;
+            vertexCollection[aux] = newCenter;
             if(xMove !== 0)
             {
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[1] += HL.y;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.y += HL.y;
+                vertexCollection[aux+1] = newPoint;
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[1] -= HL.y;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.y -= HL.y;
+                vertexCollection[aux+2] = newPoint;
+                vertexCollection[aux+3] = vertexCollection[aux];
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[2] += HL.z;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.z += HL.z;
+                vertexCollection[aux+4] = newPoint;
+                vertexCollection[aux+5] = vertexCollection[aux];
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[2] -= HL.z;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.z -= HL.z;
+                vertexCollection[aux+6] = newPoint;
+                vertexCollection[aux+7] = vertexCollection[aux];
             }
             else if(yMove !== 0)
             {
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[0] += HL.x;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.x += HL.x;
+                vertexCollection[aux+1] = newPoint;
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[0] -= HL.x;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.x -= HL.x;
+                vertexCollection[aux+2] = newPoint;
+                vertexCollection[aux+3] = vertexCollection[aux];
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[2] += HL.z;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.z += HL.z;
+                vertexCollection[aux+4] = newPoint;
+                vertexCollection[aux+5] = vertexCollection[aux];
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[2] -= HL.z;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.z -= HL.z;
+                vertexCollection[aux+6] = newPoint;
+                vertexCollection[aux+7] = vertexCollection[aux];
             }
             else if(zMove !== 0)
             {
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[1] += HL.y;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.y += HL.y;
+                vertexCollection[aux+1] = newPoint;
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[1] -= HL.y;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.y -= HL.y;
+                vertexCollection[aux+2] = newPoint;
+                vertexCollection[aux+3] = vertexCollection[aux];
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[0] += HL.x;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.x += HL.x;
+                vertexCollection[aux+4] = newPoint;
+                vertexCollection[aux+5] = vertexCollection[aux];
                 
-                var newPoint = [];
-                newPoint[0] = newCenter[0];
-                newPoint[1] = newCenter[1];
-                newPoint[2] = newCenter[2];
+                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
-                newPoint[0] -= HL.x;
-                vertexCollection.push(newPoint);
-                vertexCollection.push(newCenter);
+                newPoint.x -= HL.x;
+                vertexCollection[aux+6] = newPoint;
+                vertexCollection[aux+7] = vertexCollection[aux];
             }
             else
             {

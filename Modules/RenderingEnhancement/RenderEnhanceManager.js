@@ -11,7 +11,8 @@ RenderEnhanceManager.prototype.init = function()
 {
     pointCloudDrawing();
     polyDrawing();
-    octreeDrawing();
+    octreeDrawing(0);
+//    avatarDrawing(1);
    // initTexture();
 }
 
@@ -22,14 +23,17 @@ RenderEnhanceManager.prototype.drawRegularScene = function()
     currentObject.drawPreparation();
     gl.drawArrays(gl.POINTS, 0, currentObject.vertexPositionBuffer.numItems);
     
-    currentPolygon.drawPreparation();
-    gl.drawArrays(gl.LINES, 0, currentPolygon.vertexPositionBuffer.numItems);
+    if(showOctree)
+    {   
+        currentPolygon.drawPreparation();
+        gl.drawArrays(gl.LINES, 0, currentPolygon.vertexPositionBuffer.numItems);
+    }
     
-    currentPolygon2.drawPreparation();
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, null);
-    gl.uniform1i(currentPolygon2.shaderProgram.samplerUniform, 0);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, currentPolygon2.vertexPositionBuffer.numItems);
+//    currentPolygon2.drawPreparation();
+//    gl.activeTexture(gl.TEXTURE0);
+//    gl.bindTexture(gl.TEXTURE_2D, null);
+//    gl.uniform1i(currentPolygon2.shaderProgram.samplerUniform, 0);
+//    gl.drawArrays(gl.TRIANGLE_STRIP, 0, currentPolygon2.vertexPositionBuffer.numItems);
     
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
 }
@@ -87,22 +91,22 @@ function pointCloudDrawing()
     pointCloud.prepareDraw();
     pointCloud.cleanUp();
     currentObject = pointCloud;
-    if(parseIndex == 0)
-    {
-        appObjects.set("Dragon", currentObject);
-    }
-    else if(parseIndex == 1)
-    {
-        appObjects.set("Manuscript", currentObject);
-    }
-    else if(parseIndex == 2)
-    {
-        appObjects.set("Parliament", currentObject);
-    }
-    if(mapContains(appObjects, "Parliament"))
-    {
-        document.getElementById("Debug2").innerHTML = "True";
-    }
+//    if(parseIndex == 0)
+//    {
+//        appObjects.set("Dragon", currentObject);
+//    }
+//    else if(parseIndex == 1)
+//    {
+//        appObjects.set("Manuscript", currentObject);
+//    }
+//    else if(parseIndex == 2)
+//    {
+//        appObjects.set("Parliament", currentObject);
+//    }
+//    if(mapContains(appObjects, "Parliament"))
+//    {
+//        document.getElementById("Debug2").innerHTML = "True";
+//    }
 //    document.getElementById("Debug2").innerHTML = "";
 //    appObjects.forEach(function(value, key, mapObj) {
 //    document.getElementById("Debug2").innerHTML += key;
@@ -192,32 +196,50 @@ function polyDrawing()
     currentPolygon2 = polygon2;
 }
 
-function octreeDrawing()
+function octreeDrawing(index)
 {
-//    var vertices = [
-//         0.01, 0.005625, 0,
-//        0, 0.005625, 0,
-//         0.01, 0, 0,
-//        0, 0, 0
-//        ];
-
-    var verts = collisionManager.pointCloudOctree.wireframeVertices;
+    var verts = collisionManager.pointCloudOctrees[index].wireframeVertices;
     var vertices = [];
+    var depths = [];
     for(var i = 0; i < verts.length; i++)
     {
-        for(var k = 0; k < verts[i].length; k++)
-        {
-            vertices.push(verts[i][k]);
-        }
-//            console.log("Vertex: " + vertices[i*3 + 0] + ", " + vertices[i*3 + 1] + ", " + vertices[i*3 + 2]);
+        var point = verts[i].position();
+        for(var k = 0; k < point.length; k++)
+            vertices.push(point[k]);
+        depths.push(verts[i].depth);
+        
     }
     
     console.log("!$!$!$!$" + vertices.length);
-    var octree = new Wireframe(vertices, vertices.length/3);
+    console.log("!$!$!$!$" + depths.length);
+    var octree = new Wireframe(vertices, vertices.length/3, depths, index);
     octree.init();
     octree.prepareDraw();
     octree.cleanUp();
     currentPolygon = octree;
+}
+
+function avatarDrawing(index)
+{
+    var verts = collisionManager.pointCloudOctrees[index].wireframeVertices;
+    var vertices = [];
+    var depths = [];
+    for(var i = 0; i < verts.length; i++)
+    {
+        var point = verts[i].position();
+        for(var k = 0; k < point.length; k++)
+            vertices.push(point[k]);
+        depths.push(verts[i].depth);
+        
+    }
+    
+    console.log("!$!$!$!$" + vertices.length);
+    console.log("!$!$!$!$" + depths.length);
+    var octree = new Wireframe(vertices, vertices.length/3, depths, index);
+    octree.init();
+    octree.prepareDraw();
+    octree.cleanUp();
+    avatar = octree;
     
 }
 

@@ -4,10 +4,10 @@ var camera = new Camera();
 
 //Objects
 var globalID = 0;
+var avatar;
 var currentObject;
 var currentPolygon;
 var currentPolygon2;
-var appObjects = new Map();
 
 //PARSING
 var colors = [];
@@ -25,3 +25,8 @@ var prevTime = new Date().getTime();
 var depthFrameBuffer;
 var colorTexture;
 var depthTexture;
+
+
+//STATE VARIABLES
+var showOctree = false;
+var drawnOctree = false;

@@ -2,14 +2,16 @@
  * This file was created by João Luís Reis
  */
 
-var Wireframe = function(vertex, numberVertex) {
+var Wireframe = function(vertex, numberVertex, depths, index) {
     this.ID = 0;
+    this.collisionManagerIndex = index;
     this.vertexes = vertex;
     this.numberVertex = numberVertex;
+    this.depths = depths;
     this.modelMatrix = mat4.create();
     
     this.vertexPositionBuffer;
-    this.vertexNormalBuffer;    
+    this.vertexDepthBuffer;    
 
     
     this.shaderProgram;
@@ -28,6 +30,14 @@ Wireframe.prototype.init = function()
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertexes), gl.STATIC_DRAW);
     this.vertexPositionBuffer.itemSize = 3;
     this.vertexPositionBuffer.numItems = this.numberVertex;
+
+    //Vertex Depth buffer
+    this.vertexDepthBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexDepthBuffer);
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.depths), gl.STATIC_DRAW);
+    this.vertexDepthBuffer.itemSize = 1;
+    this.vertexDepthBuffer.numItems = this.numberVertex;
 
     //initialize shaders
     
@@ -48,14 +58,19 @@ Wireframe.prototype.startShader = function()
 
     this.shaderProgram.vertexPositionAttribute = gl.getAttribLocation(this.shaderProgram, "aVertexPosition");
     gl.enableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
+    
+    this.shaderProgram.vertexDepthAttribute = gl.getAttribLocation(this.shaderProgram, "aVertexDepth");
+    gl.enableVertexAttribArray(this.shaderProgram.vertexDepthAttribute);
 
     this.shaderProgram.cameraUniform = gl.getUniformLocation(this.shaderProgram, "Camera");
     this.shaderProgram.modelUniform = gl.getUniformLocation(this.shaderProgram, "Model");
+    this.shaderProgram.depthUniform = gl.getUniformLocation(this.shaderProgram, "mDepth");
 }
 
 Wireframe.prototype.cleanUp = function()
 {
     gl.disableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
+    gl.disableVertexAttribArray(this.shaderProgram.vertexDepthAttribute);
 }
 
 Wireframe.prototype.drawPreparation = function()
@@ -66,9 +81,14 @@ Wireframe.prototype.drawPreparation = function()
     gl.enableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
     gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.vertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
     
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexDepthBuffer);
+    gl.enableVertexAttribArray(this.shaderProgram.vertexDepthAttribute);
+    gl.vertexAttribPointer(this.shaderProgram.vertexDepthAttribute, this.vertexDepthBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
     var m = camera.matrix();
     gl.uniformMatrix4fv(this.shaderProgram.cameraUniform, false, camera.matrix());
     gl.uniformMatrix4fv(this.shaderProgram.modelUniform, false, this.modelMatrix);
+    gl.uniform1f(this.shaderProgram.depthUniform, false, collisionManager.pointCloudOctrees[this.collisionManagerIndex].maxDepth);
 }
 
 Wireframe.prototype.getModelMatrix = function()
