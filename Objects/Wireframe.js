@@ -2,9 +2,9 @@
  * This file was created by João Luís Reis
  */
 
-var Wireframe = function(vertex, numberVertex, depths, index) {
+var Wireframe = function(vertex, numberVertex, depths, maxDepth) {
     this.ID = 0;
-    this.collisionManagerIndex = index;
+    this.maxDepth = maxDepth;
     this.vertexes = vertex;
     this.numberVertex = numberVertex;
     this.depths = depths;
@@ -88,7 +88,7 @@ Wireframe.prototype.drawPreparation = function()
     var m = camera.matrix();
     gl.uniformMatrix4fv(this.shaderProgram.cameraUniform, false, camera.matrix());
     gl.uniformMatrix4fv(this.shaderProgram.modelUniform, false, this.modelMatrix);
-    gl.uniform1f(this.shaderProgram.depthUniform, false, collisionManager.pointCloudOctrees[this.collisionManagerIndex].maxDepth);
+    gl.uniform1f(this.shaderProgram.depthUniform, false, this.maxDepth);
 }
 
 Wireframe.prototype.getModelMatrix = function()

@@ -2,13 +2,20 @@
  * This file was created by João Luís Reis
  */
 
-var PointCloud = function(name, vertices, colors, numberColors, numberVertex) {
+var Avatar = function(name, vertices, colors, numberColors, numberVertex) {
     this.ID = 0;
     this.name = name;
     this.vertexes = vertices;
     this.colors = colors;
     this.numColors = numberColors;
     this.numVertex = numberVertex;
+    this.modelMatrix = mat4.create();
+    this.modelMatrixUpdateFunction = function(){
+        var model = mat4.create();
+        model = mat4.invert(mat4.create(), camera.view());
+        model = mat4.translate(mat4.create(), model, [0, 0, -1]);
+        this.modelMatrix = model;
+    };
     
     this.vertexPositionBuffer;
     this.vertexColorBuffer;
@@ -21,7 +28,7 @@ var PointCloud = function(name, vertices, colors, numberColors, numberVertex) {
     this.wireframe = null;
 };
 
-PointCloud.prototype.init = function()
+Avatar.prototype.init = function()
 {
     //get ID for this objet
     this.ID = getNewObjectID();
@@ -49,12 +56,12 @@ PointCloud.prototype.init = function()
     this.shaderProgram = createShaderProgram(this.shaderProgram, vertexShader, fragmentShader);
 }
 
-PointCloud.prototype.prepareDraw = function()
+Avatar.prototype.prepareDraw = function()
 {
     this.startShader();
 }
 
-PointCloud.prototype.startShader = function()
+Avatar.prototype.startShader = function()
 {
     gl.useProgram(this.shaderProgram);
 
@@ -73,12 +80,11 @@ PointCloud.prototype.startShader = function()
     this.shaderProgram.blue = gl.getUniformLocation(this.shaderProgram, "blue");
 }
 
-PointCloud.prototype.drawPreparation = function()
+Avatar.prototype.drawPreparation = function()
 {
     this.prepareDraw();
     
-    var model = mat4.create();
-    model = mat4.translate(mat4.create(), model, [0, 0.0, 0]);
+    this.modelMatrixUpdateFunction();
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
     gl.enableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
@@ -95,16 +101,26 @@ PointCloud.prototype.drawPreparation = function()
     
     var m = camera.matrix();
     gl.uniformMatrix4fv(this.shaderProgram.cameraUniform, false, camera.matrix());
-    gl.uniformMatrix4fv(this.shaderProgram.modelUniform, false, model);
+    gl.uniformMatrix4fv(this.shaderProgram.modelUniform, false, this.modelMatrix);
 }
 
-PointCloud.prototype.cleanUp = function()
+Avatar.prototype.cleanUp = function()
 {
     gl.disableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
     gl.disableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
 }
 
-PointCloud.prototype.octreeDrawing = function()
+Avatar.prototype.getModelMatrix = function()
+{
+    return this.modelMatrix;
+}
+
+Avatar.prototype.updateModelMatrix = function(newModel)
+{
+    this.modelMatrix = newModel;
+}
+
+Avatar.prototype.octreeDrawing = function()
 {
     var verts = this.collisionManager.pointCloudOctree.wireframeVertices;
     var vertices = [];

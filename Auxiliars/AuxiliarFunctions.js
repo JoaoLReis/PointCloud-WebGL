@@ -17,6 +17,11 @@ function fpsCounter()
     }
 }
 
+function addTime(msg, prevTime)
+{
+    document.getElementById("Times").innerHTML = document.getElementById("Times").innerHTML + (" || " + msg + ": " + (new Date().getTime() - prevTime));
+}
+
 function submitPly()
 {
     plyFiles = document.getElementById('input').files;

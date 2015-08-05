@@ -9,9 +9,9 @@ var RenderEnhanceManager = function()
 
 RenderEnhanceManager.prototype.init = function()
 {
-    pointCloudDrawing();
+//    pointCloudDrawing();
     polyDrawing();
-    octreeDrawing(0);
+//    octreeDrawing(0);
 //    avatarDrawing(1);
    // initTexture();
 }
@@ -20,14 +20,20 @@ RenderEnhanceManager.prototype.drawRegularScene = function()
 {
     //need to create PC manager to iterate all active PC and draw them
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-    currentObject.drawPreparation();
-    gl.drawArrays(gl.POINTS, 0, currentObject.vertexPositionBuffer.numItems);
     
-    if(showOctree)
-    {   
-        currentPolygon.drawPreparation();
-        gl.drawArrays(gl.LINES, 0, currentPolygon.vertexPositionBuffer.numItems);
+    var keysPC = Object.keys(currentPointClouds);
+    for(var i = 0; i < keysPC.length; i++)
+    {
+        currentPointClouds[keysPC[i]].drawPreparation();
+        gl.drawArrays(gl.POINTS, 0, currentPointClouds[keysPC[i]].vertexPositionBuffer.numItems);
+        
+        if(drawOctrees && showOctree)
+        {   
+            currentPointClouds[keysPC[i]].wireframe.drawPreparation();
+            gl.drawArrays(gl.LINES, 0, currentPointClouds[keysPC[i]].wireframe.vertexPositionBuffer.numItems);
+        }
     }
+    
     
 //    currentPolygon2.drawPreparation();
 //    gl.activeTexture(gl.TEXTURE0);

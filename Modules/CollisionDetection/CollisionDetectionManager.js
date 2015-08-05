@@ -6,7 +6,7 @@ var CollisionDetectionManager = function()
 {
     this.ID = 0;
     this.radius = 0.01;
-    this.pointCloudOctrees = [];
+    this.pointCloudOctree;
 }
 
 CollisionDetectionManager.prototype.init = function()
@@ -32,9 +32,9 @@ CollisionDetectionManager.prototype.init = function()
 CollisionDetectionManager.prototype.createOctree = function(centerPC, XYZlength, vertex)
 {
     var now = new Date().getTime();
-    this.pointCloudOctrees.push(new Octree(centerPC, XYZlength));
-    this.pointCloudOctrees[this.pointCloudOctrees.length-1].init(vertex);
-    document.getElementById("Times").innerHTML = document.getElementById("Times").innerHTML + (" || Create Octree: " + (new Date().getTime() - now));
+    this.pointCloudOctree = new Octree(centerPC, XYZlength);
+    this.pointCloudOctree.init(vertex);
+    addTime("Create Octree", now);
 }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -43,10 +43,15 @@ CollisionDetectionManager.prototype.createOctree = function(centerPC, XYZlength,
 CollisionDetectionManager.prototype.prepareOctreeDraw = function()
 {
     var now = new Date().getTime();
-    for(var i = 0; i < this.pointCloudOctrees.length; i++)
-        this.pointCloudOctrees[i].generateWireframe();
-    document.getElementById("Times").innerHTML = document.getElementById("Times").innerHTML + (" || Prepare Octree for drawing: " + (new Date().getTime() - now));
+    this.pointCloudOctree.generateWireframe();
+    addTime("Prepare Octree for drawing", now);
 }
+
+
+
+
+
+
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // TO CALCULATE MIN DISTANCE BETWEEN 2 POINTS

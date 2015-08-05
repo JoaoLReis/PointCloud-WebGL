@@ -247,7 +247,7 @@ Camera.prototype.updateCamera = function()
           camera.offsetOrientation(camera.cameraMoveSensivity*10, 0);
           break;
 
-        case 79:
+        case 79: //O
             showOctree = !showOctree;
             break;
   }

@@ -37,6 +37,7 @@
 <script type="text/javascript" src="Objects/Polygon.js"></script>
 <script type="text/javascript" src="Objects/PointCloud.js"></script>
 <script type="text/javascript" src="Objects/Wireframe.js"></script>
+<script type="text/javascript" src="Objects/Avatar.js"></script>
 <script type="text/javascript" src="Objects/PointCloudManager.js"></script>
 
 <!-- Parser scripts -->
@@ -95,8 +96,10 @@ window.onload = function(){
         <p id="Debug" class="Strings">Debug String</p> 
         <p id="Debug2" class="Strings">Debug String</p> 
         <div id ="buttons">
+            <button id="bInit" onclick="webGLInit()">Init</button>
             <button id="bParse" onclick="ParsePly()">Parser</button>
             <button id="bStart" onclick="webGLStart()">WebGL start</button>
+            <button id="bOctrees" onclick="octreeDraw()">Draw Octrees</button>
         </div>
         
         <p id="fps" class="Strings">FPS Count:</p> 

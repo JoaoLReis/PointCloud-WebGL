@@ -1,27 +1,32 @@
 var plyFiles = "";
 var parseIndex = 0;
 
-var centerPC = new Point(0, 0, 0);
-var XYZlength = new Point(0, 0, 0);
-
 function ParsePly() {
     
     var auxStruct = {file:"",reader:"" };
     
     parseIndex = document.getElementById("selector").selectedIndex;
     
-    auxInput(auxStruct);
-    document.getElementById("Debug2").innerHTML = document.getElementById("selector").options[parseIndex].value;
+    var namePC = document.getElementById("selector").options[parseIndex].value;
+    
+    auxInput(auxStruct, namePC);
+    
+    document.getElementById("Debug2").innerHTML = namePC;
     
     // If we use onloadend, we need to check the readyState.
     auxStruct.reader.onloadend = function(evt) {
         
+        
+        var centerPC = new Point(0, 0, 0);
+        var XYZlength = new Point(0, 0, 0);
+        
         var maxXYZ = [-99999999, -99999999, -99999999];
         var minXYZ = [99999999, 99999999, 99999999];
-        colors = [];
-        vertex = [];
-        numberVertex = 0;
-        numberColors = 0;
+        
+        var colors = [];
+        var vertex = [];
+        var numberVertex = 0;
+        var numberColors = 0;
         ready = false;
         var lines = this.result.split('\n');
         
@@ -71,7 +76,7 @@ function ParsePly() {
             if(parseFloat(splitted[0]) != parseFloat(splitted[0]))
             {
                 console.log("WARNING SOMETHING CRAZY IS HAPPENING!!!!!!");
-                console.log("point X: " + parseFloat(splitted[0]) + ", " + parseFloat(splitted[1]) + ", " + parseFloat(splitted[2]));
+                console.log("point: " + parseFloat(splitted[0]) + ", " + parseFloat(splitted[1]) + ", " + parseFloat(splitted[2]));
                 console.log("maxX: " + maxXYZ[0] + ", " + maxXYZ[1] + ", " + maxXYZ[2]);
             }
             
@@ -90,6 +95,21 @@ function ParsePly() {
                 XYZlength.y = Math.abs((minXYZ[1] - maxXYZ[1])*1000000/2000000);
                 XYZlength.z = Math.abs((minXYZ[2] - maxXYZ[2])*1000000/2000000);
                 
+                var pointCloud;
+                if(namePC === "Avatar")
+                    pointCloud = new Avatar(namePC, vertex, colors, numberColors, numberVertex);
+                else
+                    pointCloud = new PointCloud(namePC, vertex, colors, numberColors, numberVertex);
+                
+                pointCloud.init();
+                pointCloud.prepareDraw();
+                pointCloud.cleanUp();
+                currentPointClouds[namePC] = pointCloud;
+                currentPointClouds[namePC].collisionManager.createOctree(centerPC, XYZlength, vertex);
+                if(drawOctrees){
+                    currentPointClouds[namePC].collisionManager.prepareOctreeDraw();
+                    currentPointClouds[namePC].octreeDrawing();
+                }
                 //document.getElementById("Debug").innerHTML = "about to calculate Radius";
                 //collisionManager.calculateRadius();
                 ready = true;
@@ -105,7 +125,7 @@ function ParsePly() {
     
 }
 
-function auxInput(auxStruct)
+function auxInput(auxStruct, namePC)
 {
     
     document.getElementById("Ready").innerHTML = "Not Ready";
@@ -113,10 +133,16 @@ function auxInput(auxStruct)
     
     document.getElementById("Debug").innerHTML = "Start parse";
     
-   if (!plyFiles.length) {
-   alert('Please select a file!');
-     return false;
-   }
+    if (!plyFiles.length) {
+    alert('Please select a file!');
+      return false;
+    }
+
+    if(namePC in currentPointClouds)
+    {
+        alert('Duplicate Point Cloud!');
+        return false;
+    }
 
     document.getElementById("Debug").innerHTML = "File size not 0";
 
