@@ -8,10 +8,13 @@ function webGLInit()
     initGL(canvas);
     initStuff();
     
-    var depthTextureExtension = gl.getExtension("WEBGL_depth_texture");
-    if (!depthTextureExtension) {
-        alert("depth textures not supported");
-    } 
+    if(depthTexture)
+    {
+        var depthTextureExtension = gl.getExtension("WEBGL_depth_texture");
+        if (!depthTextureExtension) {
+            alert("depth textures not supported");
+        } 
+    }
     document.getElementById("Ready").innerHTML = "Inited - Not Ready";
 }
 
@@ -36,26 +39,33 @@ function webGLStart() {
 //        var keysPC = Object.keys(currentPointClouds);
 //        for(var i = 0; i < keysPC.length; i++)
 //        {
-//            currentPointClouds[keysPC[i]].collisionManager.prepareOctreeDraw();
+//            currentPointClouds[keysPC[i]].octreeManager.prepareOctreeDraw();
 //            currentPointClouds[keysPC[i]].octreeDrawing();
 //        }
 //    }
     gl.enable(gl.DEPTH_TEST);
     
     
-//    collisionManager.init();
-//    collisionManager.createOctree(centerPC, XYZlength, vertex);
-//    collisionManager.prepareOctreeDraw();
+//    octreeManager.init();
+//    octreeManager.createOctree(centerPC, XYZlength, vertex);
+//    octreeManager.prepareOctreeDraw();
     
     renderManager.init();
     
-    gl.clearColor(0.1, 0.1, 0.1, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
   
     tick();
 }
 
-function octreeDraw()
+function createSynthPC()
 {
+    document.getElementById("Ready").innerHTML = "Synthesizing";
+    document.getElementById("Ready").style.color = "red";
+    generateSynthPC("Avatar", 10000, -0.25, 0.25);
+    generateSynthPC("Other", 100000, -1, 1);
+    document.getElementById("Ready").innerHTML = "Ready";
+    document.getElementById("Ready").style.color = "green";
+    ready = true;
 }
 
 function tick() {

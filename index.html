@@ -23,6 +23,8 @@
 <!-- Modules -->
 <script type="text/javascript" src="Modules/RenderingEnhancement/RenderEnhanceManager.js"></script>
 <script type="text/javascript" src="Modules/CollisionDetection/CollisionDetectionManager.js"></script>
+<script type="text/javascript" src="Modules/CollisionDetection/OctreeManager.js"></script>
+
 
 <!-- behaviour scripts -->
 <script type="text/javascript" src="Scene/Camera.js"></script>
@@ -41,6 +43,7 @@
 <script type="text/javascript" src="Objects/PointCloudManager.js"></script>
 
 <!-- Parser scripts -->
+<script type="text/javascript" src="Parsers/SynthPC.js"></script>
 <script type="text/javascript" src="Parsers/PlyParser.js"></script>
 
 <!-- Shaders -->
@@ -76,13 +79,13 @@ window.onload = function(){
     </div>
     
     <div id="Interface">
-        <div id="FileSelection">
+<!--        <div id="FileSelection">
             <input type="file" name="file" id="input" multiple="true">
             <button id="submitPly" onclick="submitPly()">Submit</button>
             <select id="selector" style="visibility:hidden"> Select File:
             </select>
-        </div>
-        <div id="SceneManipulation">
+        </div>-->
+<!--        <div id="SceneManipulation">
             <p>Point Size</p>
             <input type="range" id="pointSize" max="4.0" min="0.0" step="0.1">
             <p>Red</p>
@@ -91,15 +94,20 @@ window.onload = function(){
             <input type="range" id="green" max="1.0" min="0.0" step="0.05" value="1.0">
             <p>Blue</p>
             <input type="range" id="blue" max="1.0" min="0.0" step="0.05" value="1.0">
-        </div>
+        </div> -->
+        <p id="DebugString1">Point Size</p>
+        <p id="DebugString2">Red</p>
+        <p id="DebugString3">Green</p>
+        <p id="DebugString4">Blue</p>
         <p id="Ready" class="Strings">Not Ready</p> 
         <p id="Debug" class="Strings">Debug String</p> 
         <p id="Debug2" class="Strings">Debug String</p> 
         <div id ="buttons">
             <button id="bInit" onclick="webGLInit()">Init</button>
-            <button id="bParse" onclick="ParsePly()">Parser</button>
+            <!--<button id="bParse" onclick="ParsePly()">Parser</button>-->
+            <button id="bParse" onclick="createSynthPC()">Synth PC</button>
             <button id="bStart" onclick="webGLStart()">WebGL start</button>
-            <button id="bOctrees" onclick="octreeDraw()">Draw Octrees</button>
+            <!--<button id="bOctrees" onclick="octreeDraw()">Draw Octrees</button>-->
         </div>
         
         <p id="fps" class="Strings">FPS Count:</p> 
@@ -110,7 +118,7 @@ window.onload = function(){
     
     <div id="Display">
         <div id="Canvas">
-            <canvas id="MyTest" width="1280" height="720"></canvas>
+            <canvas id="MyTest" width="1024" height="576"></canvas>
         </div>
     </div>
 </body>

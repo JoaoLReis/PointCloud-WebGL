@@ -25,6 +25,7 @@ function ParsePly() {
         
         var colors = [];
         var vertex = [];
+        var points = [];
         var numberVertex = 0;
         var numberColors = 0;
         ready = false;
@@ -85,6 +86,11 @@ function ParsePly() {
             {
                 colors.push(splitted[k]/255.0);
             }
+            
+            var vertexLength = vertex.length;
+            var colorLength = colors.length;
+            points.push(new Point(vertex[vertexLength-3], vertex[vertexLength-2], vertex[vertexLength-1], colors[colorLength-3], colors[colorLength-2], colors[colorLength-1], vertex.length - 3));
+            
             if(line === lines.length-1)
             {        
                 
@@ -97,21 +103,21 @@ function ParsePly() {
                 
                 var pointCloud;
                 if(namePC === "Avatar")
-                    pointCloud = new Avatar(namePC, vertex, colors, numberColors, numberVertex);
+                    pointCloud = new Avatar(namePC, vertex, colors, numberColors, numberVertex, points);
                 else
-                    pointCloud = new PointCloud(namePC, vertex, colors, numberColors, numberVertex);
+                    pointCloud = new PointCloud(namePC, vertex, colors, numberColors, numberVertex, points);
                 
                 pointCloud.init();
                 pointCloud.prepareDraw();
                 pointCloud.cleanUp();
-                currentPointClouds[namePC] = pointCloud;
-                currentPointClouds[namePC].collisionManager.createOctree(centerPC, XYZlength, vertex);
+                pointCloud.octreeManager.createOctree(centerPC, XYZlength, points);
                 if(drawOctrees){
-                    currentPointClouds[namePC].collisionManager.prepareOctreeDraw();
-                    currentPointClouds[namePC].octreeDrawing();
+                    pointCloud.octreeManager.prepareOctreeDraw();
+                    pointCloud.octreeDrawing();
                 }
+                currentPointClouds[namePC] = pointCloud;
                 //document.getElementById("Debug").innerHTML = "about to calculate Radius";
-                //collisionManager.calculateRadius();
+                //octreeManager.calculateRadius();
                 ready = true;
                 document.getElementById("Ready").innerHTML = "Ready";
                 document.getElementById("Ready").style.color = "green";

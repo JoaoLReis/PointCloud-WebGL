@@ -24,14 +24,7 @@ RenderEnhanceManager.prototype.drawRegularScene = function()
     var keysPC = Object.keys(currentPointClouds);
     for(var i = 0; i < keysPC.length; i++)
     {
-        currentPointClouds[keysPC[i]].drawPreparation();
-        gl.drawArrays(gl.POINTS, 0, currentPointClouds[keysPC[i]].vertexPositionBuffer.numItems);
-        
-        if(drawOctrees && showOctree)
-        {   
-            currentPointClouds[keysPC[i]].wireframe.drawPreparation();
-            gl.drawArrays(gl.LINES, 0, currentPointClouds[keysPC[i]].wireframe.vertexPositionBuffer.numItems);
-        }
+        currentPointClouds[keysPC[i]].draw();
     }
     
     

@@ -13,7 +13,7 @@
             <url>Parsers/PlyParser.js</url>
             <bookmark id="2">
                 <name/>
-                <line>80</line>
+                <line>81</line>
                 <key/>
             </bookmark>
         </file>
@@ -22,14 +22,16 @@
         <group>
             <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Modules/Structures/Octree.js</file>
             <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Modules/RenderingEnhancement/RenderEnhanceManager.js</file>
-            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Scene/Scene%20Drawing.js</file>
-            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Parsers/PlyParser.js</file>
+            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/index.html</file>
+            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Modules/CollisionDetection/OctreeManager.js</file>
+            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Scene/InitStuff.js</file>
+            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Parsers/SynthPC.js</file>
             <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Objects/PointCloud.js</file>
-            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Modules/CollisionDetection/CollisionDetectionManager.js</file>
             <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Objects/Avatar.js</file>
+            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Modules/CollisionDetection/CollisionDetectionManager.js</file>
             <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/MainFlow.js</file>
-            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Auxiliars/GlobalVariables.js</file>
-            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Objects/Wireframe.js</file>
+            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Scene/Camera.js</file>
+            <file>file:/D:/Users/Utilizador/Desktop/Tese%20Mestrado/Pratica/PointCloud-WebGL/Modules/Structures/OctreeNode.js</file>
         </group>
     </open-files>
 </project-private>

@@ -5,21 +5,26 @@
 var Octree = function(centerPC, XYZlength)
 {
     this.ID = 0;
-    this.root = new OctreeNode(centerPC, XYZlength, 0);
-    this.maxDepth = 8;
+    this.numberNodes = 0;
+    this.root = new OctreeNode(centerPC, XYZlength);
+    this.originalCenter = new Point(centerPC.x, centerPC.y, centerPC.z);
+    this.originalHL = new Point(XYZlength.x, XYZlength.y, XYZlength.z);
+    this.maxDepth = 4;
     this.wireframeVertices = [];
 }
 
 Octree.prototype.init = function(points)
 {
-    for(var i = 0; i < points.length; i+=3)
+    for(var i = 0; i < points.length; i++)
     {
-        this.root.insert([points[i], points[i+1], points[i+2]], this.maxDepth);
+        this.root.insert(points[i], this.maxDepth, this);
     }
+    console.log(this.numberNodes);
 }
 
 Octree.prototype.generateWireframe = function()
 {
+    this.wireframeVertices = [];
     this.generateRootWireframe();
     this.generateRestWireframe();
 }
@@ -67,4 +72,14 @@ Octree.prototype.generateRestWireframe = function()
             this.wireframeVertices.push(returned[i]);
         }
     }
+}
+
+Octree.prototype.updatePosition = function(modelM)
+{
+    this.root.updatePosition(modelM);
+}
+
+Octree.prototype.checkCollision = function(bmin, bmax, results)
+{
+    return this.root.hardCollision(bmin, bmax, results);
 }

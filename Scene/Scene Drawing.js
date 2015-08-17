@@ -16,5 +16,6 @@ function drawScene() {
     
 //    renderManager.drawScene();
     renderManager.drawRegularScene();
+    collisionManager.computeCollision();
     
 }

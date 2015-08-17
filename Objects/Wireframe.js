@@ -17,6 +17,18 @@ var Wireframe = function(vertex, numberVertex, depths, maxDepth) {
     this.shaderProgram;
 };
 
+Wireframe.prototype.initVPosBuffer = function()
+{
+    //initialize buffers
+    //Vertex buffer
+    this.vertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertexes), gl.STATIC_DRAW);
+    this.vertexPositionBuffer.itemSize = 3;
+    this.vertexPositionBuffer.numItems = this.numberVertex;
+}
+
 Wireframe.prototype.init = function()
 {
     //get ID for this objet
@@ -89,6 +101,17 @@ Wireframe.prototype.drawPreparation = function()
     gl.uniformMatrix4fv(this.shaderProgram.cameraUniform, false, camera.matrix());
     gl.uniformMatrix4fv(this.shaderProgram.modelUniform, false, this.modelMatrix);
     gl.uniform1f(this.shaderProgram.depthUniform, false, this.maxDepth);
+}
+
+Wireframe.prototype.drawToScreen = function()
+{
+    gl.drawArrays(gl.LINES, 0, this.vertexPositionBuffer.numItems);
+}
+
+Wireframe.prototype.draw = function()
+{
+    this.drawPreparation();
+    this.drawToScreen();
 }
 
 Wireframe.prototype.getModelMatrix = function()

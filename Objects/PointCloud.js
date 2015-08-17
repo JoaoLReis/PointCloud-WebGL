@@ -2,11 +2,17 @@
  * This file was created by João Luís Reis
  */
 
-var PointCloud = function(name, vertices, colors, numberColors, numberVertex) {
+var PointCloud = function(name, vertices, colors, numberColors, numberVertex, points) {
     this.ID = 0;
     this.name = name;
+    this.points = points;
     this.vertexes = vertices;
     this.colors = colors;
+    this.originalColors = [];
+    for(var i = 0; i < colors.length; i++)
+    {
+        this.originalColors[i] = colors[i];
+    }
     this.numColors = numberColors;
     this.numVertex = numberVertex;
     
@@ -16,8 +22,8 @@ var PointCloud = function(name, vertices, colors, numberColors, numberVertex) {
     this.shaderProgram;
     
     //Collision detection
-    this.collisionManager = new CollisionDetectionManager();
-    this.collisionManager.init();
+    this.octreeManager = new OctreeManager();
+    this.octreeManager.init();
     this.wireframe = null;
 };
 
@@ -47,6 +53,16 @@ PointCloud.prototype.init = function()
     var fragmentShader = getShader(gl, fragmentShaderSrc, false);
     var vertexShader = getShader(gl, vertexShaderSrc, true);
     this.shaderProgram = createShaderProgram(this.shaderProgram, vertexShader, fragmentShader);
+}
+
+PointCloud.prototype.initColorBuffer = function()
+{
+    //Color buffer
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexColorBuffer);
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.colors), gl.STATIC_DRAW);
+    this.vertexColorBuffer.itemSize = this.numColors;
+    this.vertexColorBuffer.numItems = this.numVertex;
 }
 
 PointCloud.prototype.prepareDraw = function()
@@ -88,14 +104,30 @@ PointCloud.prototype.drawPreparation = function()
     gl.enableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
     gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-    gl.uniform1f(this.shaderProgram.pointSizeUniform, document.getElementById("pointSize").value);
-    gl.uniform1f(this.shaderProgram.red, document.getElementById("red").value);
-    gl.uniform1f(this.shaderProgram.green, document.getElementById("green").value);
-    gl.uniform1f(this.shaderProgram.blue, document.getElementById("blue").value);
+    gl.uniform1f(this.shaderProgram.pointSizeUniform, document.getElementById("SceneManipulation") ? document.getElementById("pointSize").value : 2);
+    gl.uniform1f(this.shaderProgram.red, document.getElementById("SceneManipulation") ? document.getElementById("red").value : 1);
+    gl.uniform1f(this.shaderProgram.green, document.getElementById("SceneManipulation") ? document.getElementById("green").value : 1);
+    gl.uniform1f(this.shaderProgram.blue, document.getElementById("SceneManipulation") ? document.getElementById("blue").value : 1);
     
     var m = camera.matrix();
     gl.uniformMatrix4fv(this.shaderProgram.cameraUniform, false, camera.matrix());
     gl.uniformMatrix4fv(this.shaderProgram.modelUniform, false, model);
+}
+
+PointCloud.prototype.drawToScreen = function()
+{
+    gl.drawArrays(gl.POINTS, 0, this.vertexPositionBuffer.numItems);
+
+    if(drawOctrees && showOctree)
+    {   
+        this.wireframe.draw();
+    }
+}
+
+PointCloud.prototype.draw = function()
+{
+    this.drawPreparation();
+    this.drawToScreen();
 }
 
 PointCloud.prototype.cleanUp = function()
@@ -106,7 +138,8 @@ PointCloud.prototype.cleanUp = function()
 
 PointCloud.prototype.octreeDrawing = function()
 {
-    var verts = this.collisionManager.pointCloudOctree.wireframeVertices;
+    var now = new Date().getTime();
+    var verts = this.octreeManager.pointCloudOctree.wireframeVertices;
     var vertices = [];
     var depths = [];
     for(var i = 0; i < verts.length; i++)
@@ -120,8 +153,22 @@ PointCloud.prototype.octreeDrawing = function()
     
     console.log("!$!$!$!$" + vertices.length);
     console.log("!$!$!$!$" + depths.length);
-    this.wireframe = new Wireframe(vertices, vertices.length/3, depths, this.collisionManager.pointCloudOctree.maxDepth);
+    this.wireframe = new Wireframe(vertices, vertices.length/3, depths, this.octreeManager.pointCloudOctree.maxDepth);
     this.wireframe.init();
     this.wireframe.prepareDraw();
     this.wireframe.cleanUp();
+    addTime("Octree drawn", now);
+}
+
+PointCloud.prototype.checkCollision = function (bmin, bmax, results)
+{
+    return this.octreeManager.checkCollision(bmin, bmax, results);
+}
+
+PointCloud.prototype.resetColor = function()
+{
+    for(var i = 0; i < this.colors.length; i++)
+    {
+        this.colors[i] = this.originalColors[i];
+    }
 }

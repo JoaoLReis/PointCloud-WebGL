@@ -7,7 +7,7 @@ var mouse =
 };
 
 var Camera = function(){ 
-    this.position = [0.0, 0.0, 0.0];
+    this.position = [0.0, 0.0, -5.0];
     this.hAngle = 0.0;
     this.vAngle = 0.0;
     this.FOV = 80;
@@ -249,6 +249,14 @@ Camera.prototype.updateCamera = function()
 
         case 79: //O
             showOctree = !showOctree;
+            break;
+            
+        case 80: //P
+            var keysPC = Object.keys(currentPointClouds);
+            for(var i = 0; i < keysPC.length; i++)
+            {
+                currentPointClouds[keysPC[i]].resetColor();
+            }
             break;
   }
 };

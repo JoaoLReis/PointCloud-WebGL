@@ -38,10 +38,12 @@ function initStuff()
 
 function initGL(canvas) {
 	try {
-		gl = canvas.getContext("webgl");
+		gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 		gl.viewportWidth = canvas.width;
 		gl.viewportHeight = canvas.height;
 	} catch (e) {
+            var msg = "Error creating WebGL context: " + e.toString();
+            throw Error(msg);
 	}
 	if (!gl) {
 		alert("Could not initialise WebGL, sorry :-(");
