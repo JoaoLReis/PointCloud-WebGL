@@ -50,7 +50,7 @@ function createSynthPC()
 {
     document.getElementById("Ready").innerHTML = "Synthesizing";
     document.getElementById("Ready").style.color = "red";
-    generateSynthPC("Other", 200000, -5, 5);
+    generateSynthPC("Other", 1000000, -5, 5);
     generateSynthPC("Avatar", 1000, -1, 1);
     document.getElementById("Ready").innerHTML = "Ready";
     document.getElementById("Ready").style.color = "green";

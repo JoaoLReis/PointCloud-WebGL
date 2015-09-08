@@ -13,7 +13,7 @@ var Octree = function(centerPC, XYZlength)
     this.root.init();
     this.originalCenter = new Point(centerPC.x, centerPC.y, centerPC.z);
     this.originalHL = new Point(XYZlength.x, XYZlength.y, XYZlength.z);
-    this.maxDepth = 4;
+    this.maxDepth = 5;
     this.wireframeVertices = [];
 };
 

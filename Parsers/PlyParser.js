@@ -89,7 +89,7 @@ function ParsePly() {
             
             var vertexLength = vertex.length;
             var colorLength = colors.length;
-            points.push(new Point(vertex[vertexLength-3], vertex[vertexLength-2], vertex[vertexLength-1], colors[colorLength-3], colors[colorLength-2], colors[colorLength-1], vertex.length - 3));
+            points.push(new Point(vertex[vertexLength-3], vertex[vertexLength-2], vertex[vertexLength-1], colors[colorLength-3], colors[colorLength-2], colors[colorLength-1], colorLength - numberColors));
             
             if(line === lines.length-1)
             {        

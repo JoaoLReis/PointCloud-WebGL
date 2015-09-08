@@ -2,32 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7b15290-96ba-4a12-86ef-eb0169109d90" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PageManipulation.js" />
-      <change type="DELETED" beforePath="D:\Users\Utilizador\Desktop\Tese Mestrado\Pratica\PointCloud-WebGL\WebSite.sln" afterPath="" />
-      <change type="DELETED" beforePath="D:\Users\Utilizador\Desktop\Tese Mestrado\Pratica\PointCloud-WebGL\WebSite.vbproj" afterPath="" />
-      <change type="DELETED" beforePath="D:\Users\Utilizador\Desktop\Tese Mestrado\Pratica\PointCloud-WebGL\bin\Debug\ConsoleApplication.vshost.exe.manifest" afterPath="" />
-      <change type="DELETED" beforePath="D:\Users\Utilizador\Desktop\Tese Mestrado\Pratica\PointCloud-WebGL\nbproject\private\private.properties" afterPath="" />
-      <change type="DELETED" beforePath="D:\Users\Utilizador\Desktop\Tese Mestrado\Pratica\PointCloud-WebGL\nbproject\private\private.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Users\Utilizador\Desktop\Tese Mestrado\Pratica\PointCloud-WebGL\nbproject\project.properties" afterPath="" />
-      <change type="DELETED" beforePath="D:\Users\Utilizador\Desktop\Tese Mestrado\Pratica\PointCloud-WebGL\nbproject\project.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Auxiliars/AuxiliarFunctions.js" afterPath="$PROJECT_DIR$/Auxiliars/AuxiliarFunctions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Objects/Avatar.js" afterPath="$PROJECT_DIR$/Objects/Avatar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scene/Camera.js" afterPath="$PROJECT_DIR$/Scene/Camera.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules/CollisionDetection/CollisionDetectionManager.js" afterPath="$PROJECT_DIR$/Modules/CollisionDetection/CollisionDetectionManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Shaders/DepthFragmentShader.js" afterPath="$PROJECT_DIR$/Shaders/DepthFragmentShader.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Auxiliars/GlobalVariables.js" afterPath="$PROJECT_DIR$/Auxiliars/GlobalVariables.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MainFlow.js" afterPath="$PROJECT_DIR$/MainFlow.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules/Structures/Octree.js" afterPath="$PROJECT_DIR$/Modules/Structures/Octree.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules/CollisionDetection/OctreeManager.js" afterPath="$PROJECT_DIR$/Modules/CollisionDetection/OctreeManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules/Structures/OctreeNode.js" afterPath="$PROJECT_DIR$/Modules/Structures/OctreeNode.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PageManipulation.js" afterPath="$PROJECT_DIR$/PageManipulation.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Parsers/PlyParser.js" afterPath="$PROJECT_DIR$/Parsers/PlyParser.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Objects/PointCloud.js" afterPath="$PROJECT_DIR$/Objects/PointCloud.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules/RenderingEnhancement/RenderEnhanceManager.js" afterPath="$PROJECT_DIR$/Modules/RenderingEnhancement/RenderEnhanceManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scene/Scene Drawing.js" afterPath="$PROJECT_DIR$/Scene/Scene Drawing.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Parsers/SynthPC.js" afterPath="$PROJECT_DIR$/Parsers/SynthPC.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/style.css" afterPath="$PROJECT_DIR$/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PointCloud-WebGL.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,51 +29,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
+      <file leaf-file-name="Camera.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scene/Camera.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.346154">
-              <caret line="119" column="29" selection-start-line="119" selection-start-column="29" selection-end-line="119" selection-end-column="29" />
-              <folding>
-                <element signature="n#style#0;n#button#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#2;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#3;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="280" column="16" selection-start-line="280" selection-start-column="16" selection-end-line="280" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OctreeNode.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Structures/OctreeNode.js">
+      <file leaf-file-name="PlyParser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Parsers/PlyParser.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="311" column="26" selection-start-line="311" selection-start-column="26" selection-end-line="311" selection-end-column="26" />
-              <folding>
-                <element signature="e#229#920#0" expanded="false" />
-                <element signature="e#962#994#0" expanded="false" />
-                <element signature="e#997#1031#0" expanded="false" />
-                <element signature="e#1076#1257#0" expanded="false" />
-                <element signature="e#1340#3383#0" expanded="false" />
-                <element signature="e#3386#3659#0" expanded="false" />
-                <element signature="e#3714#3899#0" expanded="false" />
-                <element signature="e#3914#3952#0" expanded="false" />
-                <element signature="e#7434#7463#0" expanded="false" />
-              </folding>
+              <caret line="79" column="81" selection-start-line="79" selection-start-column="81" selection-end-line="79" selection-end-column="81" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Octree.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Structures/Octree.js">
+      <file leaf-file-name="PointCloud.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Objects/PointCloud.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.72447324">
+              <caret line="175" column="34" selection-start-line="175" selection-start-column="34" selection-end-line="175" selection-end-column="34" />
               <folding>
-                <element signature="e#737#766#0" expanded="false" />
-                <element signature="e#815#919#0" expanded="false" />
-                <element signature="e#974#2001#0" expanded="false" />
-                <element signature="e#2056#2274#0" expanded="false" />
-                <element signature="e#2340#2704#0" expanded="false" />
+                <element signature="e#2162#2189#0" expanded="false" />
+                <element signature="e#2238#3170#0" expanded="false" />
+                <element signature="e#3223#4571#0" expanded="false" />
+                <element signature="e#4621#4774#0" expanded="false" />
+                <element signature="e#4816#4872#0" expanded="false" />
+                <element signature="e#4917#5071#0" expanded="false" />
+                <element signature="e#5921#5991#0" expanded="false" />
+                <element signature="e#6286#6289#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -104,46 +74,6 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="32" column="41" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="41" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Scene Drawing.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scene/Scene Drawing.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OctreeManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/CollisionDetection/OctreeManager.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="38" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PointCloud.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Objects/PointCloud.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.22852512">
-              <caret line="142" column="34" selection-start-line="142" selection-start-column="21" selection-end-line="142" selection-end-column="34" />
-              <folding>
-                <element signature="e#2162#2189#0" expanded="false" />
-                <element signature="e#2238#3170#0" expanded="false" />
-                <element signature="e#3223#4571#0" expanded="false" />
-                <element signature="e#4621#4774#0" expanded="false" />
-                <element signature="e#4816#4872#0" expanded="false" />
-                <element signature="e#4917#5071#0" expanded="false" />
-                <element signature="e#5921#5991#0" expanded="false" />
-                <element signature="e#6039#6151#0" expanded="false" />
-                <element signature="e#6199#6202#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -167,20 +97,20 @@
         <option value="$PROJECT_DIR$/Modules/CollisionDetection/OctreeManager.js" />
         <option value="$PROJECT_DIR$/Scene/Camera.js" />
         <option value="$PROJECT_DIR$/Shaders/DepthFragmentShader.js" />
-        <option value="$PROJECT_DIR$/Auxiliars/GlobalVariables.js" />
         <option value="$PROJECT_DIR$/Modules/RenderingEnhancement/RenderEnhanceManager.js" />
-        <option value="$PROJECT_DIR$/PageManipulation.js" />
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/Modules/Structures/OctreeNode.js" />
         <option value="$PROJECT_DIR$/Scene/Scene Drawing.js" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/Parsers/PlyParser.js" />
         <option value="$PROJECT_DIR$/Parsers/SynthPC.js" />
         <option value="$PROJECT_DIR$/Auxiliars/AuxiliarFunctions.js" />
         <option value="$PROJECT_DIR$/Objects/Avatar.js" />
+        <option value="$PROJECT_DIR$/Modules/CollisionDetection/CollisionDetectionManager.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/Auxiliars/GlobalVariables.js" />
         <option value="$PROJECT_DIR$/MainFlow.js" />
         <option value="$PROJECT_DIR$/Modules/Structures/Octree.js" />
-        <option value="$PROJECT_DIR$/Modules/CollisionDetection/CollisionDetectionManager.js" />
+        <option value="$PROJECT_DIR$/PageManipulation.js" />
+        <option value="$PROJECT_DIR$/Parsers/PlyParser.js" />
         <option value="$PROJECT_DIR$/Objects/PointCloud.js" />
       </list>
     </option>
@@ -250,20 +180,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Shaders" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PointCloud-WebGL" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PointCloud-WebGL" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Scene" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -279,20 +195,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Parsers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PointCloud-WebGL" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PointCloud-WebGL" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Objects" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -468,6 +370,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2090813" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -479,7 +382,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2090813" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -496,7 +398,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -589,9 +491,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#style#0;n#button#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#2;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#3;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#2;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#3;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -772,14 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scene/Camera.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="257" column="20" selection-start-line="257" selection-start-column="20" selection-end-line="257" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scene/InitStuff.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.41463414">
@@ -796,57 +690,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PageManipulation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Auxiliars/GlobalVariables.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7163695">
-          <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Auxiliars/AuxiliarFunctions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Parsers/PlyParser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.88168555">
-          <caret line="158" column="41" selection-start-line="158" selection-start-column="41" selection-end-line="158" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/RenderingEnhancement/RenderEnhanceManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!block;n#pointCloudDrawing#0" expanded="false" />
-            <element signature="n#!!block;n#mapContains#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -867,14 +715,6 @@
             <element signature="e#7036#7272#0" expanded="false" />
             <element signature="e#7320#7352#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scene/Scene Drawing.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -902,42 +742,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/CollisionDetection/CollisionDetectionManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="41" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Parsers/SynthPC.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.46029174">
-          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainFlow.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50405186">
-          <caret line="52" column="14" selection-start-line="52" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.346154">
-          <caret line="119" column="29" selection-start-line="119" selection-start-column="29" selection-end-line="119" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#2;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#3;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Structures/OctreeNode.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -952,20 +756,6 @@
             <element signature="e#3714#3899#0" expanded="false" />
             <element signature="e#3914#3952#0" expanded="false" />
             <element signature="e#7434#7463#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Structures/Octree.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding>
-            <element signature="e#737#766#0" expanded="false" />
-            <element signature="e#815#919#0" expanded="false" />
-            <element signature="e#974#2001#0" expanded="false" />
-            <element signature="e#2056#2274#0" expanded="false" />
-            <element signature="e#2340#2704#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -996,10 +786,120 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Auxiliars/AuxiliarFunctions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66019416">
+          <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Auxiliars/GlobalVariables.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.79902756">
+          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.653846">
+          <caret line="85" column="86" selection-start-line="85" selection-start-column="86" selection-end-line="85" selection-end-column="86" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#2;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#3;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainFlow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="31" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Structures/Octree.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2560778">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+          <folding>
+            <element signature="e#737#766#0" expanded="false" />
+            <element signature="e#815#919#0" expanded="false" />
+            <element signature="e#974#2001#0" expanded="false" />
+            <element signature="e#2056#2274#0" expanded="false" />
+            <element signature="e#2340#2704#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scene/Scene Drawing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4764992">
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/RenderingEnhancement/RenderEnhanceManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.41166937">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!block;n#pointCloudDrawing#0" expanded="false" />
+            <element signature="n#!!block;n#mapContains#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PageManipulation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36628848">
+          <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Parsers/SynthPC.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.88168555">
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Parsers/PlyParser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="79" column="81" selection-start-line="79" selection-start-column="81" selection-end-line="79" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scene/Camera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="280" column="16" selection-start-line="280" selection-start-column="16" selection-end-line="280" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/CollisionDetection/CollisionDetectionManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="41" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Objects/PointCloud.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22852512">
-          <caret line="142" column="34" selection-start-line="142" selection-start-column="21" selection-end-line="142" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.72447324">
+          <caret line="175" column="34" selection-start-line="175" selection-start-column="34" selection-end-line="175" selection-end-column="34" />
           <folding>
             <element signature="e#2162#2189#0" expanded="false" />
             <element signature="e#2238#3170#0" expanded="false" />
@@ -1008,8 +908,7 @@
             <element signature="e#4816#4872#0" expanded="false" />
             <element signature="e#4917#5071#0" expanded="false" />
             <element signature="e#5921#5991#0" expanded="false" />
-            <element signature="e#6039#6151#0" expanded="false" />
-            <element signature="e#6199#6202#0" expanded="false" />
+            <element signature="e#6286#6289#0" expanded="false" />
           </folding>
         </state>
       </provider>

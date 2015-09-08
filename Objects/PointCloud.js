@@ -168,10 +168,12 @@ PointCloud.prototype.checkCollision = function (bmin, bmax, results)
 
 PointCloud.prototype.resetColor = function()
 {
+    var colors = new Float32Array(this.colors.length);
     for(var i = 0; i < this.colors.length; i++)
     {
-        this.colors[i] = this.originalColors[i];
+        colors[i] = this.originalColors[i];
     }
+    this.initColorBuffer(0, colors);
 };
 
 PointCloud.prototype.resetFrame = function()

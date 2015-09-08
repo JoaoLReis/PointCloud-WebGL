@@ -5,6 +5,22 @@
 var parsed = false;
 var synthed = false;
 
+function stuffToDo(index)
+{
+    switch (index)
+    {
+        case 0:
+            depthTextures = !depthTextures;
+            break;
+        case 1:
+            showOctree = !showOctree;
+            break;
+        case 2:
+            drawOctrees = !drawOctrees;
+            break;
+    }
+}
+
 function choiceOfPCType(type)
 {
     switch(type)
@@ -40,9 +56,21 @@ function initButton()
 {
     webGLInit();
     if(synthed)
-    document.getElementById("synth").style.visibility = "visible";
+        document.getElementById("synth").style.visibility = "visible";
     if(parsed)
         document.getElementById("bParse").style.visibility = "visible";
+    if(!depthTextures)
+    {
+        var child = document.getElementById("depthTextures");
+        child.parentNode.removeChild(child);
+    }
+    if(!drawOctrees)
+    {
+        var child = document.getElementById("drawOctree");
+        child.parentNode.removeChild(child);
+        var child = document.getElementById("showOctree");
+        child.parentNode.removeChild(child);
+    }
     inited = true;
 }
 

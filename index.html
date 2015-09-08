@@ -80,6 +80,11 @@ window.onload = function(){
     </div>
     
     <div id="Interface">
+        <div id="StuffSelection">
+            <input type="checkbox" name="inStuff" id="depthTextures" onclick="stuffToDo(0)"> Depth Textures <br>
+            <input type="checkbox" name="inStuff" id="showOctree" onclick="stuffToDo(1)"> Show Octree <br>
+            <input type="checkbox" name="inStuff" id="drawOctree" onclick="stuffToDo(2)"> Draw Octree
+        </div>
         <div id="TypeSelection">
             <input type="radio" name="inType" id="PC" onclick="choiceOfPCType(0)"> Parsed Point Cloud
             <input type="radio" name="inType" id="SynthPC" onclick="choiceOfPCType(1)"> Synthetic Point Cloud
