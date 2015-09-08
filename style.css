@@ -1,16 +1,21 @@
 #Interface {
     height: 50%;
     position: absolute;
-    top: 150px;
-    left: 100px;
+    top: 75px;
+    left: 50px;
 }
 
 #pageTitle {
-    position: relative;
+    position: absolute;
     color: black;
-    font: normal bold 30px Georgia, serif;
-    top: 50px;
-    left: 75px;
+    font: normal bold 25px Times, serif;
+    left: 15px;
+}
+
+#FileSelection
+{
+    position: relative;
+    top: 5px;
 }
 
 #Display {
@@ -21,19 +26,13 @@
 
 #buttons{
     position: relative;
-    bottom: 0;
+    top: 10px;
 }
 
-#bParse{
-    width: 100px;
-    height: 100px;
-    margin-right: 50px;
-}
-
-#bStart{
-    width: 100px; 
-    height: 100px;
-    margin-right: 50px;
+.buttons{
+    width: 75px;
+    height: 75px;
+    margin-right: 10px;
 }
 
 #MyTest {

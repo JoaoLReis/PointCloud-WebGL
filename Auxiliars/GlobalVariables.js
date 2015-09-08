@@ -24,7 +24,7 @@ var depthTexture;
 
 
 //STATE VARIABLES
-var depthTexture = false;
+var depthTextures = false;
 var showOctree = false;
 var drawnOctree = false;
 var drawOctrees = true;

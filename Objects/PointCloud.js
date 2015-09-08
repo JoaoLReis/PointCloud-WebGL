@@ -45,7 +45,7 @@ PointCloud.prototype.init = function()
     this.vertexColorBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexColorBuffer);
 
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.colors), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.colors), gl.DYNAMIC_DRAW);
     this.vertexColorBuffer.itemSize = this.numColors;
     this.vertexColorBuffer.numItems = this.numVertex;
     
@@ -53,22 +53,23 @@ PointCloud.prototype.init = function()
     var fragmentShader = getShader(gl, fragmentShaderSrc, false);
     var vertexShader = getShader(gl, vertexShaderSrc, true);
     this.shaderProgram = createShaderProgram(this.shaderProgram, vertexShader, fragmentShader);
-}
+};
 
-PointCloud.prototype.initColorBuffer = function()
+PointCloud.prototype.initColorBuffer = function(index, data)
 {
     //Color buffer
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexColorBuffer);
 
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.colors), gl.STATIC_DRAW);
+    gl.bufferSubData(gl.ARRAY_BUFFER, index*4, data);
+    //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.colors), gl.STATIC_DRAW);
     this.vertexColorBuffer.itemSize = this.numColors;
     this.vertexColorBuffer.numItems = this.numVertex;
-}
+};
 
 PointCloud.prototype.prepareDraw = function()
 {
     this.startShader();
-}
+};
 
 PointCloud.prototype.startShader = function()
 {
@@ -87,7 +88,7 @@ PointCloud.prototype.startShader = function()
     this.shaderProgram.red = gl.getUniformLocation(this.shaderProgram, "red");
     this.shaderProgram.green = gl.getUniformLocation(this.shaderProgram, "green");
     this.shaderProgram.blue = gl.getUniformLocation(this.shaderProgram, "blue");
-}
+};
 
 PointCloud.prototype.drawPreparation = function()
 {
@@ -104,15 +105,15 @@ PointCloud.prototype.drawPreparation = function()
     gl.enableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
     gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-    gl.uniform1f(this.shaderProgram.pointSizeUniform, document.getElementById("SceneManipulation") ? document.getElementById("pointSize").value : 2);
-    gl.uniform1f(this.shaderProgram.red, document.getElementById("SceneManipulation") ? document.getElementById("red").value : 1);
-    gl.uniform1f(this.shaderProgram.green, document.getElementById("SceneManipulation") ? document.getElementById("green").value : 1);
-    gl.uniform1f(this.shaderProgram.blue, document.getElementById("SceneManipulation") ? document.getElementById("blue").value : 1);
+    gl.uniform1f(this.shaderProgram.pointSizeUniform, document.getElementById("pointSize") ? document.getElementById("pointSize").value : 2);
+    gl.uniform1f(this.shaderProgram.red, document.getElementById("red") ? document.getElementById("red").value : 1);
+    gl.uniform1f(this.shaderProgram.green, document.getElementById("green") ? document.getElementById("green").value : 1);
+    gl.uniform1f(this.shaderProgram.blue, document.getElementById("blue") ? document.getElementById("blue").value : 1);
     
     var m = camera.matrix();
     gl.uniformMatrix4fv(this.shaderProgram.cameraUniform, false, camera.matrix());
     gl.uniformMatrix4fv(this.shaderProgram.modelUniform, false, model);
-}
+};
 
 PointCloud.prototype.drawToScreen = function()
 {
@@ -122,19 +123,19 @@ PointCloud.prototype.drawToScreen = function()
     {   
         this.wireframe.draw();
     }
-}
+};
 
 PointCloud.prototype.draw = function()
 {
     this.drawPreparation();
     this.drawToScreen();
-}
+};
 
 PointCloud.prototype.cleanUp = function()
 {
     gl.disableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
     gl.disableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
-}
+};
 
 PointCloud.prototype.octreeDrawing = function()
 {
@@ -151,19 +152,19 @@ PointCloud.prototype.octreeDrawing = function()
         
     }
     
-    console.log("!$!$!$!$" + vertices.length);
-    console.log("!$!$!$!$" + depths.length);
+    console.log("!$!$!$!$ PC " + vertices.length);
+    console.log("!$!$!$!$ PC " + depths.length);
     this.wireframe = new Wireframe(vertices, vertices.length/3, depths, this.octreeManager.pointCloudOctree.maxDepth);
     this.wireframe.init();
     this.wireframe.prepareDraw();
     this.wireframe.cleanUp();
     addTime("Octree drawn", now);
-}
+};
 
 PointCloud.prototype.checkCollision = function (bmin, bmax, results)
 {
     return this.octreeManager.checkCollision(bmin, bmax, results);
-}
+};
 
 PointCloud.prototype.resetColor = function()
 {
@@ -171,4 +172,8 @@ PointCloud.prototype.resetColor = function()
     {
         this.colors[i] = this.originalColors[i];
     }
-}
+};
+
+PointCloud.prototype.resetFrame = function()
+{
+};

@@ -16,16 +16,7 @@ var depthFragmentShaderSrc =
     "alpha = textureColor.a;" +
 ""+
 "" +
-"   if(textureColor.r > 1.0)" +
-"       gl_FragColor = vec4(0, 1, 1, alpha);" +
-"   else if (textureColor.r < 0.99)" +
-"       gl_FragColor = vec4(0, 0, textureColor.r, alpha);" +
-"   else if (textureColor.r < 0.999)" +
-"       gl_FragColor = vec4(0, textureColor.r, 0, alpha);" +
-"   else if (textureColor.r < 1.0)" +
-"       gl_FragColor = vec4(textureColor.r, 0, 0, alpha);" +
-"   else" +
-"       gl_FragColor = vec4(textureColor.r, textureColor.r, 0, alpha);" +
+"       gl_FragColor = vec4(textureColor.r, textureColor.g, textureColor.b, alpha);" +
 "" +
 "" +
 "" +

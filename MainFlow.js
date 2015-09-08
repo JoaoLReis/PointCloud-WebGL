@@ -8,7 +8,7 @@ function webGLInit()
     initGL(canvas);
     initStuff();
     
-    if(depthTexture)
+    if(depthTextures)
     {
         var depthTextureExtension = gl.getExtension("WEBGL_depth_texture");
         if (!depthTextureExtension) {
@@ -23,18 +23,7 @@ function webGLStart() {
     {
         alert("I'm not ready!!");
     }
-//    
-//    var canvas = document.getElementById("MyTest");
-//    
-//    initGL(canvas);
-//    initStuff();
-//    
-//    var depthTextureExtension = gl.getExtension("WEBGL_depth_texture");
-//    if (!depthTextureExtension) {
-//        alert("depth textures not supported");
-//    }
-    
-    
+
 //    if(drawOctrees){
 //        var keysPC = Object.keys(currentPointClouds);
 //        for(var i = 0; i < keysPC.length; i++)
@@ -61,8 +50,8 @@ function createSynthPC()
 {
     document.getElementById("Ready").innerHTML = "Synthesizing";
     document.getElementById("Ready").style.color = "red";
-    generateSynthPC("Avatar", 10000, -0.25, 0.25);
-    generateSynthPC("Other", 100000, -1, 1);
+    generateSynthPC("Other", 200000, -5, 5);
+    generateSynthPC("Avatar", 1000, -1, 1);
     document.getElementById("Ready").innerHTML = "Ready";
     document.getElementById("Ready").style.color = "green";
     ready = true;

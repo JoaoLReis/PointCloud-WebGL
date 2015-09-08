@@ -6,12 +6,16 @@ var Octree = function(centerPC, XYZlength)
 {
     this.ID = 0;
     this.numberNodes = 0;
-    this.root = new OctreeNode(centerPC, XYZlength);
+    this.forward = [0, 0, XYZlength.z];
+    this.right = [XYZlength.x, 0, 0];
+    this.up = [0, XYZlength.y, 0];
+    this.root = new OctreeNode(centerPC, XYZlength, this, 0);
+    this.root.init();
     this.originalCenter = new Point(centerPC.x, centerPC.y, centerPC.z);
     this.originalHL = new Point(XYZlength.x, XYZlength.y, XYZlength.z);
     this.maxDepth = 4;
     this.wireframeVertices = [];
-}
+};
 
 Octree.prototype.init = function(points)
 {
@@ -20,14 +24,15 @@ Octree.prototype.init = function(points)
         this.root.insert(points[i], this.maxDepth, this);
     }
     console.log(this.numberNodes);
-}
+};
 
+//region WIREFRAME GENERATION
 Octree.prototype.generateWireframe = function()
 {
     this.wireframeVertices = [];
     this.generateRootWireframe();
     this.generateRestWireframe();
-}
+};
 
 Octree.prototype.generateRootWireframe = function()
 {
@@ -60,7 +65,7 @@ Octree.prototype.generateRootWireframe = function()
             this.wireframeVertices.push(newVertex);
         }
     }
-}
+};
 
 Octree.prototype.generateRestWireframe = function()
 {
@@ -72,14 +77,19 @@ Octree.prototype.generateRestWireframe = function()
             this.wireframeVertices.push(returned[i]);
         }
     }
-}
+};
+//endregion
 
 Octree.prototype.updatePosition = function(modelM)
 {
+    this.forward = vec3.transformMat4(vec3.create(), this.forward, currentPointClouds["Avatar"].getRotation());
+    this.right = vec3.transformMat4(vec3.create(), this.right, currentPointClouds["Avatar"].getRotation());
+    this.up = vec3.transformMat4(vec3.create(), this.up, currentPointClouds["Avatar"].getRotation());
+
     this.root.updatePosition(modelM);
-}
+};
 
 Octree.prototype.checkCollision = function(bmin, bmax, results)
 {
     return this.root.hardCollision(bmin, bmax, results);
-}
+};

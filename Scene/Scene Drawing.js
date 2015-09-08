@@ -15,7 +15,19 @@ function drawScene() {
 //    collisionManager.createOctree();
     
 //    renderManager.drawScene();
-    renderManager.drawRegularScene();
+
+    var now = new Date().getTime();
+    renderManager.drawScene();
+    document.getElementById("DebugString1").innerHTML = "Draw Scene Time: " + (new Date().getTime() - now);
+    now = new Date().getTime();
     collisionManager.computeCollision();
-    
+    document.getElementById("DebugString2").innerHTML = "Collision Computing Time: " + (new Date().getTime() - now);
+
+    now = new Date().getTime();
+    var keysPC = Object.keys(currentPointClouds);
+    for(var i = 0; i < keysPC.length; i++)
+    {
+        currentPointClouds[keysPC[i]].resetFrame();
+    }
+    document.getElementById("DebugString3").innerHTML = "Reset Frame Time: " + (new Date().getTime() - now);
 }

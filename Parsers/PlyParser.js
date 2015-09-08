@@ -11,7 +11,7 @@ function ParsePly() {
     
     auxInput(auxStruct, namePC);
     
-    document.getElementById("Debug2").innerHTML = namePC;
+    document.getElementById("DebugString6").innerHTML = namePC;
     
     // If we use onloadend, we need to check the readyState.
     auxStruct.reader.onloadend = function(evt) {
@@ -137,7 +137,7 @@ function auxInput(auxStruct, namePC)
     document.getElementById("Ready").innerHTML = "Not Ready";
     document.getElementById("Ready").style.color = "red";
     
-    document.getElementById("Debug").innerHTML = "Start parse";
+    document.getElementById("DebugString5").innerHTML = "Start parse";
     
     if (!plyFiles.length) {
     alert('Please select a file!');
@@ -150,11 +150,11 @@ function auxInput(auxStruct, namePC)
         return false;
     }
 
-    document.getElementById("Debug").innerHTML = "File size not 0";
+    document.getElementById("DebugString5").innerHTML = "File size not 0";
 
     auxStruct.file = plyFiles[parseIndex];
 
     auxStruct.reader = new FileReader();
     
-    document.getElementById("Debug").innerHTML = "Start reading";
+    document.getElementById("DebugString5").innerHTML = "Start reading";
 }

@@ -104,7 +104,7 @@ Camera.prototype.forward = function()
     var aux = mat4.create();
     var out = vec4.create();
     var inverted = mat4.invert(aux, camera.orientation());
-    var vectorTrans = vec4.transformMat4(out,[0,0,-1,1], mat4.create());
+    var vectorTrans = vec4.transformMat4(out,[0,0,-document.getElementById("cameraSpeed").value,1], mat4.create());
     f = matrixVectorMultiply(inverted, vectorTrans);
     return [f[0], f[1], f[2]];
 };
@@ -114,7 +114,7 @@ Camera.prototype.right = function()
     var r = vec4.create();
     var aux = mat4.create();
     var out = vec4.create();
-    r = matrixVectorMultiply(mat4.invert(aux, camera.orientation()), vec4.transformMat4(out,[1,0,0,1], mat4.create()));
+    r = matrixVectorMultiply(mat4.invert(aux, camera.orientation()), vec4.transformMat4(out,[document.getElementById("cameraSpeed").value,0,0,1], mat4.create()));
     return [r[0], r[1], r[2]];
 };
 
@@ -123,7 +123,7 @@ Camera.prototype.up = function()
     var u = vec4.create();
     var aux = mat4.create();
     var out = vec4.create();
-    u = matrixVectorMultiply(mat4.invert(aux, camera.orientation()), vec4.transformMat4(out,[0,1,0,1], mat4.create()));
+    u = matrixVectorMultiply(mat4.invert(aux, camera.orientation()), vec4.transformMat4(out,[0,document.getElementById("cameraSpeed").value,0,1], mat4.create()));
     return [u[0], u[1], u[2]];
 };
 
@@ -219,6 +219,26 @@ Camera.prototype.updateCamera = function()
           camera.offsetPosition(vec3.scale(out, dir, camera.cameraMoveSensivity));
           break;
 
+        case 38: //arrow up
+            var dir = 0.1;
+            currentPointClouds["Avatar"].updateMoveDirection(0, 0, dir);
+            break;
+
+        case 37: //arrow left
+            var dir = 0.1;
+            currentPointClouds["Avatar"].updateMoveDirection(dir, 0, 0);
+            break;
+
+        case 40: //arrow down
+            var dir = -0.1;
+            currentPointClouds["Avatar"].updateMoveDirection(0, 0, dir);
+            break;
+
+        case 39: //arrow right
+            var dir = -0.1;
+            currentPointClouds["Avatar"].updateMoveDirection(dir, 0, 0);
+            break;
+
         case 32: //SpaceBar
           var dir = camera.up();
           var out = vec3.create();
@@ -232,19 +252,24 @@ Camera.prototype.updateCamera = function()
           break;
 
         case 89: //Y
-          camera.offsetOrientation(0, camera.cameraMoveSensivity*10);
+            var dir = 0.1;
+            currentPointClouds["Avatar"].updateMoveDirection(0, dir, 0);
           break;
+        case 85: //U
+            var dir = -0.1;
+            currentPointClouds["Avatar"].updateMoveDirection(0, dir, 0);
+        break;
 
         case 72: //H
-          camera.offsetOrientation(0, -camera.cameraMoveSensivity*10);
+            currentPointClouds["Avatar"].rotX += 0.1;
           break;
 
         case 71: //G
-          camera.offsetOrientation(-camera.cameraMoveSensivity*10, 0);
+            currentPointClouds["Avatar"].rotY += 0.1;
           break;
 
         case 74: //J
-          camera.offsetOrientation(camera.cameraMoveSensivity*10, 0);
+            currentPointClouds["Avatar"].rotZ += 0.1;
           break;
 
         case 79: //O

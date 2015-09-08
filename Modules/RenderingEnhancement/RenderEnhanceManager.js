@@ -5,21 +5,57 @@
 var RenderEnhanceManager = function()
 {
     this.ID = 0;
-}
+};
 
 RenderEnhanceManager.prototype.init = function()
 {
 //    pointCloudDrawing();
-    polyDrawing();
+    if(depthTextures)
+        polyDrawing();
 //    octreeDrawing(0);
 //    avatarDrawing(1);
    // initTexture();
-}
+};
 
-RenderEnhanceManager.prototype.drawRegularScene = function()
+RenderEnhanceManager.prototype.drawScene = function()
 {
-    //need to create PC manager to iterate all active PC and draw them
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    this.drawRegularScene(depthTextures);
+};
+
+RenderEnhanceManager.prototype.drawRegularScene = function(depth)
+{
+    if(depth)
+    {
+        //Set drawing to framebuffer
+        gl.bindFramebuffer(gl.FRAMEBUFFER, depthFrameBuffer);
+
+        //Draw the point cloud
+        gl.clear(gl.DEPTH_BUFFER_BIT);
+        var keysPC = Object.keys(currentPointClouds);
+        for(var i = 0; i < keysPC.length; i++)
+        {
+            currentPointClouds[keysPC[i]].draw();
+        }
+        //Set drawing to canvas
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+        //Draw the Quad with the depth texture
+        currentPolygon.drawPreparation();
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, depthTexture);
+        gl.uniform1i(currentPolygon.shaderProgram.samplerUniform, 0);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, currentPolygon.vertexPositionBuffer.numItems);
+
+        currentPolygon2.drawPreparation();
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        gl.uniform1i(currentPolygon2.shaderProgram.samplerUniform, 0);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, currentPolygon2.vertexPositionBuffer.numItems);
+
+    }
+    else{
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    }
     
     var keysPC = Object.keys(currentPointClouds);
     for(var i = 0; i < keysPC.length; i++)
@@ -27,17 +63,10 @@ RenderEnhanceManager.prototype.drawRegularScene = function()
         currentPointClouds[keysPC[i]].draw();
     }
     
-    
-//    currentPolygon2.drawPreparation();
-//    gl.activeTexture(gl.TEXTURE0);
-//    gl.bindTexture(gl.TEXTURE_2D, null);
-//    gl.uniform1i(currentPolygon2.shaderProgram.samplerUniform, 0);
-//    gl.drawArrays(gl.TRIANGLE_STRIP, 0, currentPolygon2.vertexPositionBuffer.numItems);
-    
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
-}
+};
 
-RenderEnhanceManager.prototype.drawScene = function()
+RenderEnhanceManager.prototype.drawComplexScene = function()
 {
     //TODO need to create PC manager to iterate all active PC and draw them
     
@@ -80,7 +109,7 @@ RenderEnhanceManager.prototype.drawScene = function()
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, currentPolygon.vertexPositionBuffer.numItems);
     
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
-}
+};
 
 
 function pointCloudDrawing()
@@ -128,8 +157,8 @@ function mapContains(map, id)
 
 function polyDrawing()
 {
-//    initShaders(1);
-//    initDepthScreenBuffers();
+    //initShaders(1);
+    //initDepthScreenBuffers();
     var vertices = [
          0.01, 0.005625, 0,
         0, 0.005625, 0,
@@ -161,7 +190,7 @@ function polyDrawing()
         model = mat4.invert(mat4.create(), camera.view());
         model = mat4.translate(mat4.create(), model, [0.0046, 0.0027, -0.011]);
         this.modelMatrix = model;
-    }
+    };
     currentPolygon = polygon;
     
     var vertices2 = [
@@ -191,7 +220,7 @@ function polyDrawing()
     polygon2.createDepthTexture();
     polygon2.cleanUp();
     polygon2.modelMatrixUpdateFunction = function() {
-    }
+    };
     currentPolygon2 = polygon2;
 }
 
@@ -250,7 +279,7 @@ function initTexture()
     exampleTexture.image = new Image();
     exampleTexture.image.onload = function() {
       handleLoadedTexture(exampleTexture);
-    }
+    };
 
     exampleTexture.image.src = "CoolDesktopWallpaper.jpg";
 }

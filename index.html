@@ -35,6 +35,7 @@
 <script type="text/javascript" src="Scene/Scene Drawing.js"></script>
 <script type="text/javascript" src="Scene/Animations.js"></script>
 <script type="text/javascript" src="MainFlow.js"></script>
+<script type="text/javascript" src="PageManipulation.js"></script>
 <script type="text/javascript" src="Auxiliars/AuxiliarFunctions.js"></script>
 <script type="text/javascript" src="Objects/Polygon.js"></script>
 <script type="text/javascript" src="Objects/PointCloud.js"></script>
@@ -79,36 +80,45 @@ window.onload = function(){
     </div>
     
     <div id="Interface">
-<!--        <div id="FileSelection">
-            <input type="file" name="file" id="input" multiple="true">
-            <button id="submitPly" onclick="submitPly()">Submit</button>
+        <div id="TypeSelection">
+            <input type="radio" name="inType" id="PC" onclick="choiceOfPCType(0)"> Parsed Point Cloud
+            <input type="radio" name="inType" id="SynthPC" onclick="choiceOfPCType(1)"> Synthetic Point Cloud
+        </div>
+
+        <div id="FileSelection">
+            <input type="file" name="file" id="input" multiple="true" style="visibility:hidden">
+            <button id="submitPly" onclick="submitButton()" style="visibility:hidden">Submit</button>
             <select id="selector" style="visibility:hidden"> Select File:
             </select>
-        </div>-->
-<!--        <div id="SceneManipulation">
-            <p>Point Size</p>
-            <input type="range" id="pointSize" max="4.0" min="0.0" step="0.1">
-            <p>Red</p>
-            <input type="range" id="red" max="1.0" min="0.0" step="0.05" value="1.0">
-            <p>Green</p>
-            <input type="range" id="green" max="1.0" min="0.0" step="0.05" value="1.0">
-            <p>Blue</p>
-            <input type="range" id="blue" max="1.0" min="0.0" step="0.05" value="1.0">
-        </div> -->
-        <p id="DebugString1">Point Size</p>
-        <p id="DebugString2">Red</p>
-        <p id="DebugString3">Green</p>
-        <p id="DebugString4">Blue</p>
-        <p id="Ready" class="Strings">Not Ready</p> 
-        <p id="Debug" class="Strings">Debug String</p> 
-        <p id="Debug2" class="Strings">Debug String</p> 
+        </div>
+
         <div id ="buttons">
-            <button id="bInit" onclick="webGLInit()">Init</button>
-            <!--<button id="bParse" onclick="ParsePly()">Parser</button>-->
-            <button id="bParse" onclick="createSynthPC()">Synth PC</button>
-            <button id="bStart" onclick="webGLStart()">WebGL start</button>
+            <button class="buttons" id="bInit" onclick="initButton()" style="visibility:hidden">Init</button>
+            <button class="buttons" id="bParse" onclick="parseButton()" style="visibility:hidden">Parser</button>
+            <button class="buttons" id="synth" onclick="synthPCButton()" style="visibility:hidden">Synth PC</button>
+            <button class="buttons" id="bStart" onclick="startButton()" style="visibility:hidden">Start</button>
             <!--<button id="bOctrees" onclick="octreeDraw()">Draw Octrees</button>-->
         </div>
+
+        <div id="SceneManipulation">
+            <!--<p>Point Size</p>-->
+            <!--<input type="range" id="pointSize" max="4.0" min="0.0" step="0.1">-->
+            <!--<p>Red</p>-->
+            <!--<input type="range" id="red" max="1.0" min="0.0" step="0.05" value="1.0">-->
+            <!--<p>Green</p>-->
+            <!--<input type="range" id="green" max="1.0" min="0.0" step="0.05" value="1.0">-->
+            <!--<p>Blue</p>-->
+            <!--<input type="range" id="blue" max="1.0" min="0.0" step="0.05" value="1.0">-->
+            <p>Camera Speed</p>
+            <input type="range" id="cameraSpeed" max="5.0" min="0.1" step="0.1" value="1.0">
+        </div>
+        <p id="DebugString1"></p>
+        <p id="DebugString2"></p>
+        <p id="DebugString3"></p>
+        <p id="DebugString4"></p>
+        <p id="DebugString5"></p>
+        <p id="DebugString6"></p>
+        <p id="Ready" class="Strings">Not Ready</p>
         
         <p id="fps" class="Strings">FPS Count:</p> 
         

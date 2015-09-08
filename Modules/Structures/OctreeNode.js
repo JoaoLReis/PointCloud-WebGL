@@ -2,54 +2,38 @@
  * This file was created by João Luís Reis
  */
 
-//if it is root arguments (OriginPoint, OriginHalfLength)
-//if it is not root arguments (Center, HL, depth)
-var OctreeNode = function(Center, HL, depth)
+//if it is root arguments (OriginPoint, OriginHalfLength, Octree)
+//if it is not root arguments (Center, HL, Octree, depth)
+var OctreeNode = function(Center, HL, Octree, depth)
 {
     this.ID = 0;
 //    this.childIndex = 0;
-    this.depth = 0;
+    this.depth = depth;
     this.root = false;
     this.origin = new Point(arguments[0].x, arguments[0].y, arguments[0].z); //Point structure
     this.HL = new Point(arguments[1].x, arguments[1].y, arguments[1].z); //Point structure
     this.halfLength = new Point(arguments[1].x, arguments[1].y, arguments[1].z);
     this.center = new Point(arguments[0].x, arguments[0].y, arguments[0].z);
-    /*this.halfLength = function()
-    {
-        if(this.root)
-            return this.HL;
-        var parentHL = Parent.halfLength();
-        return new Point(parentHL.x*0.5, parentHL.y*0.5, parentHL.z*0.5); 
-    };
-    this.center = function()
-    {
-        if(this.root)
-        {
-            return this.origin;
-        }
-        var parentCenter = Parent.center();
-        var hl = Parent.halfLength();
-        return new Point(parentCenter.x + hl.x * (this.childIndex&4 ? 0.5 : -0.5), parentCenter.y + hl.y * (this.childIndex&2 ? 0.5 : -0.5), parentCenter.z + hl.z * (this.childIndex&1 ? 0.5 : -0.5));  
-    };*/
     this.children = new Array(null, null, null, null, null, null, null, null);
+    this.octree = arguments[2];
+    this.forward = [0, 0, arguments[1].z];
+    this.right = [arguments[1].x, 0, 0];
+    this.up = [0, arguments[1].y, 0];
     this.data = [];
-    if(arguments.length === 3)
-    {
-        this.depth = depth;
-    }
-}
+};
 
 OctreeNode.prototype.init = function()
 {
-    
-}
+    this.updateDirections();
+};
 
+//region OCTREE BUILDING FUNCTIONS
 OctreeNode.prototype.isLeafNode = function(){
     // We are a leaf if we have no children. Since we either have none, or 
     // all eight, it is sufficient to just check the first.
     
     return this.children[0] == null;
-}
+};
                 
 OctreeNode.prototype.insert = function(point, maxDepth, Octree)
 {
@@ -79,7 +63,7 @@ OctreeNode.prototype.insert = function(point, maxDepth, Octree)
                     newOrigin.y += this.HL.y * (i&2 ? 0.5 : -0.5);
                     newOrigin.z += this.HL.z * (i&1 ? 0.5 : -0.5);
                     
-                    this.children[i] = new OctreeNode(newOrigin, new Point(this.HL.x*0.5, this.HL.y*0.5, this.HL.z*0.5), this.depth + 1);
+                    this.children[i] = new OctreeNode(newOrigin, new Point(this.HL.x*0.5, this.HL.y*0.5, this.HL.z*0.5), Octree, this.depth + 1);
             }
 
             // Re-insert the old point, and insert this new point
@@ -95,7 +79,7 @@ OctreeNode.prototype.insert = function(point, maxDepth, Octree)
             var octant = this.getPointOctant(point);
             this.children[octant].insert(point, maxDepth, Octree);
     }
-}
+};
 
 /*
     Children follow a predictable pattern to make accesses simple.
@@ -114,14 +98,15 @@ OctreeNode.prototype.getPointOctant = function(point)
     if(point.z >= center.z) oct |= 1;
     
     return oct;
-}
+};
+//endregion
 
+//region COLLISION DETECTION FUNCTIONS
 //We are sending all points contained in the node for debug - send only center or node for performance
 OctreeNode.prototype.simpleCollision = function(bmin, bmax, results) {
     // If we're at a leaf node, just see if the current data point is inside
     // the query bounding box
     collisionManager.numNodes++;
-    document.getElementById("DebugString1").innerHTML = "" + this.depth;
     if(this.isLeafNode()) {
         if(this.data.length > 0) {
             for(var i = 0; i < this.data.length; i++)
@@ -146,12 +131,11 @@ OctreeNode.prototype.simpleCollision = function(bmin, bmax, results) {
 
             // At this point, we've determined that this child is intersecting 
             // the query bounding box
-            document.getElementById("DebugString2").innerHTML = "Child: " + i;
             this.children[i].simpleCollision(bmin,bmax, results);
         } 
         return results;
     }
-}
+};
                 
 OctreeNode.prototype.hardCollision = function(bmin, bmax, results) {
     // If we're at a leaf node, just see if the current data point is inside
@@ -185,8 +169,10 @@ OctreeNode.prototype.hardCollision = function(bmin, bmax, results) {
             this.children[i].hardCollision(bmin,bmax,results);
         }  
     }
-}
+};
+//endregion
 
+//region WIREFRAME GENERATION
 OctreeNode.prototype.generateSelfWireframe = function()
 {
     if(!this.isLeafNode())
@@ -215,19 +201,19 @@ OctreeNode.prototype.generateSelfWireframe = function()
                 newPoint.y += HL.y;
                 vertexCollection[aux+1] = newPoint;
                 
-                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
+                newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
                 newPoint.y -= HL.y;
                 vertexCollection[aux+2] = newPoint;
                 vertexCollection[aux+3] = vertexCollection[aux];
                 
-                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
+                newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
                 newPoint.z += HL.z;
                 vertexCollection[aux+4] = newPoint;
                 vertexCollection[aux+5] = vertexCollection[aux];
                 
-                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
+                newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
                 newPoint.z -= HL.z;
                 vertexCollection[aux+6] = newPoint;
@@ -240,19 +226,19 @@ OctreeNode.prototype.generateSelfWireframe = function()
                 newPoint.x += HL.x;
                 vertexCollection[aux+1] = newPoint;
                 
-                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
+                newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
                 newPoint.x -= HL.x;
                 vertexCollection[aux+2] = newPoint;
                 vertexCollection[aux+3] = vertexCollection[aux];
                 
-                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
+                newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
                 newPoint.z += HL.z;
                 vertexCollection[aux+4] = newPoint;
                 vertexCollection[aux+5] = vertexCollection[aux];
                 
-                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
+                newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
                 newPoint.z -= HL.z;
                 vertexCollection[aux+6] = newPoint;
@@ -266,19 +252,19 @@ OctreeNode.prototype.generateSelfWireframe = function()
                 newPoint.y += HL.y;
                 vertexCollection[aux+1] = newPoint;
                 
-                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
+                newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
                 newPoint.y -= HL.y;
                 vertexCollection[aux+2] = newPoint;
                 vertexCollection[aux+3] = vertexCollection[aux];
                 
-                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
+                newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
                 newPoint.x += HL.x;
                 vertexCollection[aux+4] = newPoint;
                 vertexCollection[aux+5] = vertexCollection[aux];
                 
-                var newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
+                newPoint = new Point(newCenter.x, newCenter.y, newCenter.z, this.depth);
                 
                 newPoint.x -= HL.x;
                 vertexCollection[aux+6] = newPoint;
@@ -310,7 +296,16 @@ OctreeNode.prototype.generateSelfWireframe = function()
         return vertexCollection;
     }
     return null;
-}
+};
+//endregion
+
+//region OCTREE UPDATE
+OctreeNode.prototype.updateDirections = function()
+{
+    this.forward = [this.octree.forward[0] >> this.depth, this.octree.forward[1] >> this.depth,this.octree.forward[2] >> this.depth];
+    this.right = [this.octree.right[0] >> this.depth, this.octree.right[1] >> this.depth,this.octree.right[2] >> this.depth];
+    this.up = [this.octree.up[0] >> this.depth, this.octree.up[1] >> this.depth,this.octree.up[2] >> this.depth];
+};
 
 OctreeNode.prototype.updatePosition = function(modelM)
 {
@@ -326,7 +321,10 @@ OctreeNode.prototype.updatePosition = function(modelM)
     var newHL = vec4.fromValues(this.HL.x, this.HL.y, this.HL.z, 1);
     
     newCenter = vec4.transformMat4(vec4.create(), newCenter, modelM);    
-    newHL = vec4.transformMat4(vec4.create(), newHL, mat4.invert(mat4.create(), camera.orientation()));
+    //newHL = vec4.transformMat4(vec4.create(), newHL, mat4.invert(mat4.create(), camera.orientation()));
+    newHL = vec4.transformMat4(vec4.create(), newHL, currentPointClouds["Avatar"].getRotation());
+
+    //this.updateDirections();
     
     this.center.x = newCenter[0];
     this.center.y = newCenter[1];
@@ -340,4 +338,5 @@ OctreeNode.prototype.updatePosition = function(modelM)
     this.halfLength.x = newHL[0];
     this.halfLength.y = newHL[1];
     this.halfLength.z = newHL[2];
-}
+};
+//endregion

@@ -12,10 +12,18 @@ var Avatar = function(name, vertices, colors, numberColors, numberVertex, points
     this.numColors = numberColors;
     this.numVertex = numberVertex;
     this.modelMatrix = mat4.create();
+    this.translation = [0, 0, 0];
+    this.rotX = 0;
+    this.rotY = 0;
+    this.rotZ = 0;
+    this.moveDirection = [0, 0, 0];
     this.modelMatrixUpdateFunction = function(){
         var model = mat4.create();
-        model = mat4.invert(mat4.create(), camera.view());
-        model = mat4.translate(mat4.create(), model, [0, 0, -1]);
+        //model = mat4.invert(mat4.create(), camera.view());
+        model = mat4.translate(mat4.create(), model, this.translation);
+        model = mat4.rotateX(mat4.create(), model, this.rotX);
+        model = mat4.rotateY(mat4.create(), model, this.rotY);
+        model = mat4.rotateZ(mat4.create(), model, this.rotZ);
         this.modelMatrix = model;
     };
     
@@ -30,6 +38,7 @@ var Avatar = function(name, vertices, colors, numberColors, numberVertex, points
     this.wireframe = null;
 };
 
+//region RENDERING
 Avatar.prototype.init = function()
 {
     //get ID for this objet
@@ -56,12 +65,12 @@ Avatar.prototype.init = function()
     var fragmentShader = getShader(gl, fragmentShaderSrc, false);
     var vertexShader = getShader(gl, vertexShaderSrc, true);
     this.shaderProgram = createShaderProgram(this.shaderProgram, vertexShader, fragmentShader);
-}
+};
 
 Avatar.prototype.prepareDraw = function()
 {
     this.startShader();
-}
+};
 
 Avatar.prototype.startShader = function()
 {
@@ -80,7 +89,7 @@ Avatar.prototype.startShader = function()
     this.shaderProgram.red = gl.getUniformLocation(this.shaderProgram, "red");
     this.shaderProgram.green = gl.getUniformLocation(this.shaderProgram, "green");
     this.shaderProgram.blue = gl.getUniformLocation(this.shaderProgram, "blue");
-}
+};
 
 Avatar.prototype.drawPreparation = function()
 {
@@ -96,51 +105,45 @@ Avatar.prototype.drawPreparation = function()
     gl.enableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
     gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.vertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-    gl.uniform1f(this.shaderProgram.pointSizeUniform, document.getElementById("SceneManipulation") ? document.getElementById("pointSize").value : 2);
-    gl.uniform1f(this.shaderProgram.red, document.getElementById("SceneManipulation") ? document.getElementById("red").value : 1);
-    gl.uniform1f(this.shaderProgram.green, document.getElementById("SceneManipulation") ? document.getElementById("green").value : 1);
-    gl.uniform1f(this.shaderProgram.blue, document.getElementById("SceneManipulation") ? document.getElementById("blue").value : 1);
+    gl.uniform1f(this.shaderProgram.pointSizeUniform, document.getElementById("pointSize") ? document.getElementById("pointSize").value : 2);
+    gl.uniform1f(this.shaderProgram.red, document.getElementById("red") ? document.getElementById("red").value : 1);
+    gl.uniform1f(this.shaderProgram.green, document.getElementById("green") ? document.getElementById("green").value : 1);
+    gl.uniform1f(this.shaderProgram.blue, document.getElementById("blue") ? document.getElementById("blue").value : 1);
     
     var m = camera.matrix();
     gl.uniformMatrix4fv(this.shaderProgram.cameraUniform, false, camera.matrix());
     gl.uniformMatrix4fv(this.shaderProgram.modelUniform, false, this.modelMatrix);
-}
+};
 
 Avatar.prototype.drawToScreen = function()
 {
     gl.drawArrays(gl.POINTS, 0, this.vertexPositionBuffer.numItems);
 
+    var now = new Date().getTime();
     this.octreeManager.pointCloudOctree.updatePosition(this.modelMatrix);
+    document.getElementById("DebugString6").innerHTML = "Octree position Update Time: " + (new Date().getTime() - now);
     if(drawOctrees && showOctree)
     {
         this.octreeManager.prepareOctreeDraw();
         this.octreeDrawingUpdate();
         this.wireframe.draw();
     }
-}
+};
 
 Avatar.prototype.draw = function()
 {
     this.drawPreparation();
     this.drawToScreen();
-}
+};
 
 Avatar.prototype.cleanUp = function()
 {
     gl.disableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
     gl.disableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
-}
+};
+//endregion
 
-Avatar.prototype.getModelMatrix = function()
-{
-    return this.modelMatrix;
-}
-
-Avatar.prototype.updateModelMatrix = function(newModel)
-{
-    this.modelMatrix = newModel;
-}
-
+//region OCTREE DRAWING
 Avatar.prototype.octreeDrawing = function()
 {
     var now = new Date().getTime();
@@ -155,14 +158,14 @@ Avatar.prototype.octreeDrawing = function()
         depths.push(verts[i].depth);
     }
     
-    console.log("!$!$!$!$" + vertices.length);
-    console.log("!$!$!$!$" + depths.length);
+    console.log("!$!$!$!$ Avatar" + vertices.length);
+    console.log("!$!$!$!$ Avatar" + depths.length);
     this.wireframe = new Wireframe(vertices, vertices.length/3, depths, this.octreeManager.pointCloudOctree.maxDepth);
     this.wireframe.init();
     this.wireframe.prepareDraw();
     this.wireframe.cleanUp();
     addTime("Octree drawn", now);
-}
+};
 
 Avatar.prototype.octreeDrawingUpdate = function()
 {
@@ -180,12 +183,44 @@ Avatar.prototype.octreeDrawingUpdate = function()
 //    this.wireframe.prepareDraw();
 //    this.wireframe.cleanUp();
 //    addTime("Octree drawn", now);
-}
+};
+//endregion
 
+//region GETTERS/SETTERS
 Avatar.prototype.resetColor = function()
 {
     for(var i = 0; i < this.colors.length; i++)
     {
         this.colors[i] = this.originalColors[i];
     }
-}
+};
+
+Avatar.prototype.getRotation = function()
+{
+    var model = mat4.create();
+    return mat4.mul(mat4.create(), mat4.rotateX(mat4.create(), model, this.rotX), mat4.mul(mat4.create(), mat4.rotateY(mat4.create(), model, this.rotY), mat4.rotateZ(mat4.create(), model, this.rotZ)));
+};
+
+Avatar.prototype.getModelMatrix = function()
+{
+    return this.modelMatrix;
+};
+
+Avatar.prototype.updateModelMatrix = function(newModel)
+{
+    this.modelMatrix = newModel;
+};
+
+Avatar.prototype.updateMoveDirection = function(x, y, z)
+{
+    this.moveDirection = [this.moveDirection + x, this.moveDirection.y + y, this.moveDirection.z + z];
+    this.translation[0] += x;
+    this.translation[1] += y;
+    this.translation[2] += z;
+};
+//endregion
+
+Avatar.prototype.resetFrame = function()
+{
+    this.moveDirection = [0, 0, 0];
+};

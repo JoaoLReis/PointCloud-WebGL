@@ -4,7 +4,7 @@
 
 function generateSynthPC(name, numberPoints, min, max)
 {
-    document.getElementById("Debug").innerHTML = "Synthesizing " + name;
+    document.getElementById("DebugString5").innerHTML = "Synthesizing " + name;
  
     var centerPC = new Point(0, 0, 0);
     var XYZlength = new Point(0, 0, 0);
@@ -19,31 +19,36 @@ function generateSynthPC(name, numberPoints, min, max)
     var points = [];
     for(var i = 0; i < numberVertex; i++)
     {
+        var color = [];
         for(var k = 0; k < 3; k++)
         {
             var value = Math.random() * (max - min) + min;
             var freq = 1;
+            var vertexVal = value;
             switch(k)
             {
-                case 0: 
-                    value = name == "Avatar" ? value /(k*2+1) : Math.cos((min+((max-min)/numberVertex)*i)*freq*Math.PI);
+                case 0:
+                    vertexVal = name == "Avatar" ? value / (k*2+1): 4*Math.cos((min+((max-min)/numberVertex)*i)*freq*Math.PI);
                     break;
-                case 1: 
-                    value = name == "Avatar" ? value /(k*2+1) : Math.cos((min+((max-min)/numberVertex)*i)*4*freq*Math.PI);
+                case 1:
+                    vertexVal = name == "Avatar" ? value / (k*2+1) : 4*Math.cos((min+((max-min)/numberVertex)*i)*4*freq*Math.PI);
                     break;
-                case 2: 
-                    value = name == "Avatar" ? value /(k*2+1) : value;
+                case 2:
+                    vertexVal = name == "Avatar" ? value / (k*2+1) : value;
                     break;
             }
-            vertex.push(value);
-//            colors.push((value-min)/(max-min));
-            colors.push(name == "Avatar" ? (3-k)/3: (k+1)/3);
-            maxXYZ[k] = value > maxXYZ[k] ? value : maxXYZ[k];
-            minXYZ[k] = value < minXYZ[k] ? value : minXYZ[k];
+            vertex.push(vertexVal);
+            color.push((value-min)/(max-min));
+            //color.push(name == "Avatar" ? (3-k)/3: (k+1)/3);
+            maxXYZ[k] = vertexVal > maxXYZ[k] ? vertexVal : maxXYZ[k];
+            minXYZ[k] = vertexVal < minXYZ[k] ? vertexVal : minXYZ[k];
         }
+        normalizeVector(color);
+        for(k = 0; k < 3; k++)
+            colors.push(color[k]);
         var vertexLength = vertex.length;
         var colorLength = colors.length;
-        points.push(new Point(vertex[vertexLength-3], vertex[vertexLength-2], vertex[vertexLength-1], colors[colorLength-3], colors[colorLength-2], colors[colorLength-1], vertex.length - 3));    
+        points.push(new Point(vertex[vertexLength-3], vertex[vertexLength-2], vertex[vertexLength-1], colors[colorLength-3], colors[colorLength-2], colors[colorLength-1], vertexLength - 3));
     }
     
     centerPC.x = (minXYZ[0] + maxXYZ[0])*1000000/2000000;

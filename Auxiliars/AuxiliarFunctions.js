@@ -29,7 +29,7 @@ function submitPly()
     for(var i=0; i<plyFiles.length; i++)
     {
       fileNames.push(plyFiles[i].name.split(".")[0]);  //new Option("Text", "Value")
-      document.getElementById("Debug2").innerHTML = plyFiles[i].name.split(".")[0];
+      document.getElementById("DebugString6").innerHTML = plyFiles[i].name.split(".")[0];
     }
     populateSelect(fileNames);
     document.getElementById("selector").style.visibility="visible";

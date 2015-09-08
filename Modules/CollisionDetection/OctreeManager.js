@@ -7,7 +7,7 @@ var OctreeManager = function()
     this.ID = 0;
     this.radius = 0.01;
     this.pointCloudOctree;
-}
+};
 
 OctreeManager.prototype.init = function()
 {
@@ -24,7 +24,7 @@ OctreeManager.prototype.init = function()
 //    {
 //        this.radius = 0.1;
 //    }
-}
+};
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // OCTREE CONSTRUCTION
@@ -35,7 +35,7 @@ OctreeManager.prototype.createOctree = function(centerPC, XYZlength, vertex)
     this.pointCloudOctree = new Octree(centerPC, XYZlength);
     this.pointCloudOctree.init(vertex);
     addTime("Create Octree", now);
-}
+};
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // OCTREE DRAWING
@@ -45,7 +45,7 @@ OctreeManager.prototype.prepareOctreeDraw = function()
     var now = new Date().getTime();
     this.pointCloudOctree.generateWireframe();
 //    addTime("Prepare Octree for drawing", now);
-}
+};
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // CHECK COLLISION
@@ -55,7 +55,7 @@ OctreeManager.prototype.checkCollision = function(bmin, bmax, results)
     var now = new Date().getTime();
     return this.pointCloudOctree.checkCollision(bmin, bmax, results);
 //    addTime("Prepare Octree for drawing", now);
-}
+};
 
 
 
@@ -71,7 +71,7 @@ OctreeManager.prototype.calculateRadius = function()
     document.getElementById("Debug").innerHTML = "calculating Radius";
 //    usingBuckets();
     calculatingNearestNeighbors();
-}
+};
 
 function calculatingNearestNeighbors()
 {
