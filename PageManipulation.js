@@ -62,13 +62,16 @@ function initButton()
     if(!depthTextures)
     {
         var child = document.getElementById("depthTextures");
+        document.getElementById("depthTexturesLabel").innerHTML = "";
         child.parentNode.removeChild(child);
     }
     if(!drawOctrees)
     {
         var child = document.getElementById("drawOctree");
+        document.getElementById("drawOctreeLabel").innerHTML = "";
         child.parentNode.removeChild(child);
-        var child = document.getElementById("showOctree");
+        child = document.getElementById("showOctree");
+        document.getElementById("showOctreeLabel").innerHTML = "";
         child.parentNode.removeChild(child);
     }
     inited = true;
